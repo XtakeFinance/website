@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {STK_AVAX_BALANCE, STK_AVAX_INPUT} from "../Reducers";
 import {Card, Divider, Space} from "antd";
@@ -8,6 +8,8 @@ import {UnstakeButton} from "./UnstakeButton";
 import {xAVAX} from "../AppConstants";
 import {AppToolTip} from "./AppToolTip";
 import {exchangeRateText} from "./StakeComponent";
+import {ClaimTableComponent} from "./ClaimTableComponent";
+import {AntTableDesignComponent} from "./AntTableDesignComponents";
 
 
 const withdrawalFeeText = "There is 0% fee for unstaking your xAVAX and receiving AVAX."
@@ -18,7 +20,6 @@ export const UnstakeComponent = () => {
     const balance = useSelector(state => state[STK_AVAX_BALANCE])
     const exchangeRate = useSelector(state => state.exchangeRate)
     const stkAvaxInput = useSelector(state => state[STK_AVAX_INPUT])
-
     const recieveTokens = exchangeRate * stkAvaxInput;
 
 
@@ -34,7 +35,7 @@ export const UnstakeComponent = () => {
                 <Divider orientation="left" plain style={{color: "white", borderColor: "#333333"}}/>
                 <div style={{textAlign: "center"}}>{isConnected ? <UnstakeButton/> : <ConnectWalletButton/>}</div>
                 <Divider orientation="left" plain style={{color: "white", borderColor: "#333333"}}/>
-                <table style={{padding: "20px", borderColor: "#333333", width:"100%"}}>
+                <table style={{padding: "20px", borderColor: "#333333", width: "100%"}}>
                     <tr>
                         <td style={{paddingRight: "160px", paddingBottom: "20px"}}>Your Balance</td>
                         <td style={{
@@ -57,6 +58,7 @@ export const UnstakeComponent = () => {
                         <td style={{textAlign: "right"}}>0%</td>
                     </tr>
                 </table>
+                {isConnected ? <ClaimTableComponent /> : <></>}
             </Card>
         </Space>
     )

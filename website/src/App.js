@@ -19,8 +19,8 @@ import {DividerComponent} from "./Components/DividerComponent";
 function App() {
 
     useEffect(() => {
-        ReactGA.initialize(MEASUREMENT_ID);
-        ReactGA.send("pageview");
+        // ReactGA.initialize(MEASUREMENT_ID);
+        // ReactGA.send("pageview");
     }, [])
 
     return (

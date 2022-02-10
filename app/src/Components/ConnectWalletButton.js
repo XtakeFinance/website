@@ -1,7 +1,14 @@
 import React from "react";
 import {Button} from "antd";
 import {WalletOutlined} from '@ant-design/icons';
-import {resetBalance, setAccount, setBalance, setConnection, setMetamaskAlert} from "../Actions/walletActions";
+import {
+    fetchClaimTickets,
+    resetBalance,
+    setAccount,
+    setBalance,
+    setConnection,
+    setMetamaskAlert
+} from "../Actions/walletActions";
 import {resetInput} from "../Actions/transactionActions";
 import {useDispatch} from "react-redux";
 import {useMoralis} from "react-moralis";
@@ -84,6 +91,7 @@ export const ConnectWalletButton = ({appBar}) => {
         try {
             await authenticate({
                     onSuccess: async (user) => {
+                        console.log(account)
                         dispatch(setAccount(account));
                         dispatch(setConnection(true));
                         dispatch(setBalance())

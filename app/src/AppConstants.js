@@ -6,10 +6,10 @@ import stkAVAX from './Utils/stkAVAX.json'
 export const contractAddress = "0x3618D7FC219eA109986a3c4912ef27f844405971";
 export const contractABI = abi.abi;
 
-export const stkAVAXContractAddress = "0x1F42309c1A1Db327189929A51b63E0602f8E0Cd4";
+export const stkAVAXContractAddress = "0x9f3bE5CFffa7c41265562c7C06220d18A37e6AA7";
 export const stkAVAXContractABI = stkAVAX.abi;
 
-export const liquidStakingContractAddress = "0xd0f81d60A66a9f888553084EacB815f769f85366";
+export const liquidStakingContractAddress = "0x6B3Ff3d12797F0d6E6118CD552185452F0fdcFC4";
 export const liquidStakingContractABI = liquidStaking.abi;
 
 export const footerText = "© 2021-2022 Blocknaut Labs. All Rights Reserved"

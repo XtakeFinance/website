@@ -90,7 +90,7 @@ export const TransactionDetails = ({error, details}) => {
                                                 isStaking ?
                                                     `${avaxInput} AVAX Successfully Staked`
                                                     :
-                                                    `Your request has been received. You will get your ${avaxInput} AVAX within 2 weeks.`
+                                                    `Your request has been received. You will get your ${stkAvaxInput} AVAX within 2 weeks.`
                                             }
                                         </div>
                                         <p style={{fontSize: "12px", paddingTop: "10px", opacity: "0.5"}}>Check the

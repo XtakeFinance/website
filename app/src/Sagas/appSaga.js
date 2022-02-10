@@ -1,5 +1,6 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {
+    FETCH_CLAIM_TICKETS,
     SET_AVAX_BALANCE,
     SET_BALANCE,
     SET_DEVICE_DIMENSION,
@@ -86,11 +87,15 @@ function* setExchangeRateDetails(action) {
     }
 }
 
+function* fetchAndSetClaimTickets(action) {
+    console.log(action)
+}
+
 // Starts fetchUser on each dispatched USER_FETCH_REQUESTED action
 // Allows concurrent fetches of user
 export function* appSaga() {
     yield takeEvery(SET_BALANCE, getAccountBalance);
     yield takeEvery(SET_DEVICE_DIMENSION, setDeviceDetails);
     yield takeEvery(SET_EXCHANGE_RATE, setExchangeRateDetails);
-
+    yield takeEvery(FETCH_CLAIM_TICKETS, fetchAndSetClaimTickets)
 }

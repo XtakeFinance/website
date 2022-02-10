@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.df7869d5.css",
-    "main.js": "/static/js/main.9793106a.js",
+    "main.js": "/static/js/main.05c8fc94.js",
     "static/js/27.40828a7e.chunk.js": "/static/js/27.40828a7e.chunk.js",
     "static/media/xtakeBig.png": "/static/media/xtakeBig.8b1eb3169ac4a57a53ec.png",
     "static/media/Avalanche_AVAX_RedWhite.png": "/static/media/Avalanche_AVAX_RedWhite.e1fb45e8e070674b1a54.png",
@@ -10,6 +10,6 @@
   },
   "entrypoints": [
     "static/css/main.df7869d5.css",
-    "static/js/main.9793106a.js"
+    "static/js/main.05c8fc94.js"
   ]
 }

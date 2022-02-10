@@ -1,4 +1,5 @@
 import {
+    FETCH_CLAIM_TICKETS,
     RESET_BALANCE,
     SET_ACCOUNT,
     SET_AVAX_BALANCE,
@@ -60,5 +61,12 @@ export const setMetamaskAlert = (payload) => {
     return {
         type: SET_METAMASK_INSTALLED,
         payload
+    }
+}
+
+export const fetchClaimTickets = (account) => {
+    return {
+        type: FETCH_CLAIM_TICKETS,
+        payload: account
     }
 }
