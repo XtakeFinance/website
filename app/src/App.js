@@ -1,21 +1,21 @@
-import React, {useEffect} from "react";
-import 'antd/dist/antd.css';
-import './app.css'
-
-import {RoadMapComponent} from "./Components/RoadMapComponent";
-import {Space} from "antd";
-import {AppFooter} from "./Components/AppFooter";
-
-// import ComingSoon from "./comin-soon.jpeg"
-// import ComingSoon from "./coming soon.jpeg"
-// import ComingSoon from "./coming-soon2.webp"
-import ComingSoon from "./images/launching-soon.jpg"
-import avalanche from './images/Screenshot 2022-02-01 at 8.36.37 PM.png'
-import {HeaderComponent} from "./Components/HeaderComponent";
+import React, {useEffect} from 'react';
 import ReactGA from "react-ga4";
+import 'antd/dist/antd.css';
+import './css/general.css'
+import {AppBar} from "./Components/AppBar";
+import {AppFooter} from "./Components/AppFooter";
+import {AppBody} from "./Components/AppBody";
+import {createTheme, ThemeProvider} from "@mui/material";
+import {ErrorAndInfoComponent} from "./Components/ErrorAndInfoComponent";
 import {MEASUREMENT_ID} from "./AppConstants";
 
 function App() {
+
+    const darkTheme = createTheme({
+        palette: {
+            mode: 'dark',
+        },
+    });
 
     useEffect(() => {
         ReactGA.initialize(MEASUREMENT_ID);
@@ -23,19 +23,12 @@ function App() {
     }, [])
 
     return (
-        <div style={{background: "black", textAlign: "center"}}>
-            <HeaderComponent/>
-            <div style={{paddingTop: "110px"}}><img src={ComingSoon} width="300" height="300"/></div>
-            {/*<div><img src={logo} width="180" height="80" style={{ position:"fixed", top:30, left:80 }}/></div>*/}
-            {/*<HeaderComponent/>*/}
-            <Space size={'middle'} wrap
-                   style={{minWidth: "100%", justifyContent: "center", padding: "2%", paddingTop: "0%"}}>
-                <RoadMapComponent/>
-            </Space>
-            <div><img src={avalanche} width="216" height="36"/></div>
+        <ThemeProvider theme={darkTheme}>
+            <ErrorAndInfoComponent/>
+            <AppBar/>
+            <AppBody/>
             <AppFooter/>
-
-        </div>
+        </ThemeProvider>
     );
 }
 

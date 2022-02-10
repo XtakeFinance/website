@@ -12,16 +12,29 @@ import Title from "antd/lib/typography/Title";
 import {appColor, secondaryTextColor} from "../AppConstants";
 import {Link} from "@mui/material";
 
-export const roadmap_3 = "Audit and Mainnet launch";
-
 
 export const RoadMapComponent = () => {
     return (
-        <div style={{textAlign: "center", paddingBottom:"0px"}}>
+        <div style={{textAlign: "center", paddingTop:"80px"}}>
             <h4 style={{color: secondaryTextColor, fontWeight:"bold"}}>ROADMAP</h4>
             <Title style={{color: "white"}}>It only gets better from here</Title>
-            <h3 style={{color:secondaryTextColor, fontWeight:"normal", paddingBottom: "20px"}}>Connect with us on <Link target="_blank" href={"https://twitter.com/XtakeFinance"} underline="hover" style={{color:appColor}}>Twitter</Link> and <Link target="_blank" href={"https://discord.gg/fn3RPVM3Kq"} underline="hover" style={{color:appColor}}>Discord</Link> to keep up with our latest features and launches.</h3>
+            <h3 style={{color:secondaryTextColor, fontWeight:"normal", paddingBottom: "20px"}}>Follow us on
+                <Link target="_blank" href={"https://twitter.com/XtakeFinance"} underline="hover" style={{color:appColor}}> Twitter </Link>
+                and
+                <Link target="_blank" href={"https://discord.com/channels/@me/871435939048751105/938007030617219093"} underline="hover" style={{color:appColor}}> Discord</Link> to keep up with our latest features and launches.</h3>
             <Timeline>
+                <TimelineItem>
+                    <TimelineOppositeContent>
+                        <span style={{color: secondaryTextColor, fontWeight:"lighter"}}>Feb'22</span>
+                    </TimelineOppositeContent>
+                    <TimelineSeparator>
+                        <TimelineDot sx={{color:"green", background:"#00ff00"}} />
+                        <TimelineConnector />
+                    </TimelineSeparator>
+                    <TimelineContent>
+                        <span style={{color: secondaryTextColor, fontWeight:"lighter"}}><del>First Liquid Staking<br/> solution on Avalanche</del></span>
+                    </TimelineContent>
+                </TimelineItem>
                 <TimelineItem>
                     <TimelineOppositeContent>
                         <span style={{color: secondaryTextColor, fontWeight:"lighter"}}>Feb'22</span>
@@ -43,7 +56,7 @@ export const RoadMapComponent = () => {
                         <TimelineConnector/>
                     </TimelineSeparator>
                     <TimelineContent>
-                        <span style={{color: secondaryTextColor, fontWeight:"lighter"}}>{roadmap_3}</span>
+                        <span style={{color: secondaryTextColor, fontWeight:"lighter"}}>Audit and Testing</span>
                     </TimelineContent>
                 </TimelineItem>
                 <TimelineItem>

@@ -1,16 +1,11 @@
 import React, {useState} from "react";
 import {Footer} from "antd/es/layout/layout";
-import {footerAbout, footerText} from "../AppConstants";
+import {footerAbout} from "../AppConstants";
 import xtakeBig from '../images/xtakeBig.png';
-import {
-    Column,
-    FooterLink,
-    Heading,
-} from "./AppFooterStyles";
+import {Column, ColumnAbout, FooterLink, Heading,} from "./AppFooterStyles";
 import {Link} from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Item from '@mui/material/List';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export const AppFooter = () => {
     const [logo, setLogo] = useState(xtakeBig)
@@ -20,11 +15,11 @@ export const AppFooter = () => {
         <Footer style={{ flexGrow: 1, textAlign: 'left', color:"white", backgroundColor:"black" }}>
             <Grid container spacing={2} columns={16}>
                 <Grid item md={7}>
-                    <Column>
+                    <ColumnAbout>
                         <Item><Link href={"https://xtake.finance/"}><img
                                 src={logo} width={dimension.width} height={dimension.height}/></Link></Item>
                         <Item>{footerAbout}</Item>
-                    </Column>
+                    </ColumnAbout>
                 </Grid>
                 <Grid item md={3} xs={12}>
                     <Column>

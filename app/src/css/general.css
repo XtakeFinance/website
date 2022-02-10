@@ -1,0 +1,7 @@
+a.linkcss {
+    color: white;
+}
+
+a.linkcss:hover {
+    text-decoration: underline;
+}
