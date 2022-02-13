@@ -8,11 +8,11 @@ import {
     setBalance,
     setConnection,
     setMetamaskAlert
-} from "../Actions/walletActions";
-import {resetInput} from "../Actions/transactionActions";
+} from "../../Actions/walletActions";
+import {resetInput} from "../../Actions/transactionActions";
 import {useDispatch} from "react-redux";
 import {useMoralis} from "react-moralis";
-import {METAMASK_NOT_INSTALLED} from "./MetamaskAlert";
+import {METAMASK_NOT_INSTALLED} from "../ErrorAndInfo/MetamaskAlert";
 import {
     AVALANCHE,
     AVALANCHE_CHAIN_RPC_URL,
@@ -20,8 +20,8 @@ import {
     AVALANCHE_TEST_NET_BLOCK_EXPLORER,
     AVALANCHE_TEST_NETWORK_ID,
     AVALANCHE_TEST_NETWORK_ID_HEX,
-    AVAX
-} from "../AppConstants";
+    AVAX, stkAVAXContractAddress
+} from "../../AppConstants";
 
 
 export const otherStyle = {borderRadius: '5px', width: "100%"}
@@ -77,6 +77,39 @@ export const ConnectWalletButton = ({appBar}) => {
         }
     }
 
+    const addCustomToken = async (ethereum) => {
+        const tokenAddress = stkAVAXContractAddress;
+        const tokenSymbol = 'xAVAX';
+        const tokenDecimals = 18;
+
+        console.log(window.ethereum._metamask)
+
+
+        try {
+            // wasAdded is a boolean. Like any RPC method, an error may be thrown.
+            const wasAdded = await ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                    type: 'ERC20', // Initially only supports ERC20, but eventually more!
+                    options: {
+                        address: tokenAddress, // The address that the token is at.
+                        symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+                        decimals: tokenDecimals, // The number of decimals in the token
+                    },
+                },
+            });
+
+            if (wasAdded) {
+                console.log('Thanks for your interest!');
+            } else {
+                console.log('Your loss!');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
 
     const connectWalletHandler = async () => {
         const ethereum = window.ethereum;
@@ -101,6 +134,7 @@ export const ConnectWalletButton = ({appBar}) => {
         } catch (e) {
             console.log(e)
         }
+        // await addCustomToken(ethereum)
 
     }
 
@@ -115,6 +149,7 @@ export const ConnectWalletButton = ({appBar}) => {
         } catch (e) {
         }
     }
+
 
     if (isAuthenticated && account) {
         let textOnButton;

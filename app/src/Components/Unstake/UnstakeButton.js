@@ -1,18 +1,18 @@
 import React from "react";
 import {Button} from "antd";
 import {ethers} from "ethers";
-import * as actions from "../Actions/transactionActions";
+import * as actions from "../../Actions/transactionActions";
 import {
     liquidStakingContractABI,
     liquidStakingContractAddress, NO_OF_BLOCK_CONFIRMATIONS,
     stkAVAXContractABI,
     stkAVAXContractAddress
-} from "../AppConstants";
-import {STK_AVAX_BALANCE, STK_AVAX_INPUT} from "../Reducers";
+} from "../../AppConstants";
+import {STK_AVAX_BALANCE, STK_AVAX_INPUT} from "../../Reducers";
 import {useDispatch, useSelector} from "react-redux";
 import Moralis from "moralis";
-import {unstakeAlert} from "../Actions/transactionActions";
-import {setBalance} from "../Actions/walletActions";
+import {unstakeAlert} from "../../Actions/transactionActions";
+import {setBalance} from "../../Actions/walletActions";
 
 export const UnstakeButton = () => {
 
@@ -92,7 +92,7 @@ export const UnstakeButton = () => {
 
     return (
         <Button type="primary" style={{borderRadius: '5px', width:"100%"}} danger size={'large'} onClick={onClickHandler}>
-            Unstake stkAVAX
+            Unstake AVAX
         </Button>
     )
 

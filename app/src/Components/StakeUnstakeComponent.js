@@ -1,8 +1,8 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {StakeComponent} from "./StakeComponent";
+import {StakeComponent} from "./Stake/StakeComponent";
 import {IS_STAKING} from "../Reducers";
-import {UnstakeComponent} from "./UnstakeComponent";
+import {UnstakeComponent} from "./Unstake/UnstakeComponent";
 
 export const StakeUnstakeComponent = () => {
 

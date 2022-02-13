@@ -1,14 +1,14 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {AVAX_BALANCE} from "../Reducers";
+import {AVAX_BALANCE} from "../../Reducers";
 import {
     AVALANCHE_TEST_NETWORK_ID_HEX,
     liquidStakingContractABI,
     liquidStakingContractAddress,
     NO_OF_BLOCK_CONFIRMATIONS
-} from "../AppConstants";
-import * as actions from "../Actions/transactionActions";
-import {setBalance} from "../Actions/walletActions";
+} from "../../AppConstants";
+import * as actions from "../../Actions/transactionActions";
+import {setBalance} from "../../Actions/walletActions";
 import {Button} from "antd";
 import Moralis from "moralis";
 

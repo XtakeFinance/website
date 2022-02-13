@@ -17,24 +17,23 @@ export const filterClaims = (claims) => {
 
     })
 
-    // console.log({validClaims})
-
     const validClaimObjects = _.map(validClaims, validClaim => {
         const id = validClaim[ID].toNumber()
         const claimAmount = ethers.utils.formatEther(validClaim[AVAX_TO_RETURN])
-        const deadline = new Date((validClaim[DEADLINE].toNumber()) * 1000).toString()
-        const index = deadline.lastIndexOf(':') +3
-        const dateToClaim = (deadline.substring(0, index))
+        const deadline = new Date((validClaim[DEADLINE].toNumber()) * 1000)
         return {
             id,
             claimAmount,
-            dateToClaim
+            deadline
         }
     })
 
-    // console.log({validClaimObjects})
-
     return validClaimObjects
 
+}
 
+export const beautifyDate = (deadline) => {
+    const index = deadline.lastIndexOf(':') + 3
+    const dateToClaim = (deadline.substring(0, index))
+    return dateToClaim;
 }

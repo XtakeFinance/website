@@ -7,16 +7,20 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {MenuItem} from "@mui/material";
+import {Button, MenuItem} from "@mui/material";
 import {Select} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {ethers} from "ethers";
-import {liquidStakingContractABI, liquidStakingContractAddress} from "../AppConstants";
-import {filterClaims} from "../Utils/claimUtils";
+import {liquidStakingContractABI, liquidStakingContractAddress, NO_OF_BLOCK_CONFIRMATIONS} from "../../AppConstants";
+import {beautifyDate, filterClaims} from "../../Utils/claimUtils";
 import {useMoralis} from "react-moralis";
 import {Divider} from "antd";
 import _ from 'lodash';
-import {STK_AVAX_BALANCE} from "../Reducers";
+import {STK_AVAX_BALANCE} from "../../Reducers";
+import {EmptyComponent} from "../Utils/UtilComponents";
+import {setTransactionInProgress} from "../../Actions/transactionActions";
+import * as actions from "../../Actions/transactionActions";
+import {setBalance} from "../../Actions/walletActions";
 
 function createData(id, claimAmount, deadline) {
     return {id, claimAmount, deadline};
@@ -99,10 +103,30 @@ export function ClaimTableComponent() {
             const signer = provider.getSigner();
             const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
             const data = await liquidStakingContract.claims(account);
+            console.log({data})
             setClaims(filterClaims(data))
 
         } catch (e) {
             console.log(e)
+        }
+    }
+
+    const claim = async (id) => {
+        try {
+            dispatch(setTransactionInProgress())
+            const {ethereum} = window
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
+            const claimTxn = await liquidStakingContract.claim(id);
+            await claimTxn.wait(NO_OF_BLOCK_CONFIRMATIONS);
+            dispatch(actions.transactionCompleted());
+            dispatch(actions.setTransactionDetails(false, claimTxn));
+            dispatch(setBalance())
+        } catch (error) {
+            dispatch(actions.transactionCompleted());
+            dispatch(actions.setTransactionDetails(true, error["data"]));
+            console.log(error)
         }
     }
 
@@ -125,8 +149,12 @@ export function ClaimTableComponent() {
     console.log({claims})
 
     if (_.isEmpty(claims)) {
-        return (<></>)
+        return <EmptyComponent/>
     }
+
+    const curDate = new Date();
+
+    console.log({curDate})
 
 
     return (
@@ -146,7 +174,15 @@ export function ClaimTableComponent() {
                             <TableRow>
                                 <TableCell>{row.id}</TableCell>
                                 <TableCell>{row.claimAmount} AVAX</TableCell>
-                                <TableCell>{row["dateToClaim"].toString()}</TableCell>
+                                <TableCell>
+                                    {
+                                        row["deadline"].getTime() < curDate.getTime() ?
+                                            <Button color={"error"} onClick={() => {
+                                                claim(row.id)
+                                            }}>claim</Button> :
+                                            beautifyDate(row["deadline"].toString())
+                                    }
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

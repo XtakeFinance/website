@@ -3,10 +3,10 @@ import ReactGA from "react-ga4";
 import 'antd/dist/antd.css';
 import './css/general.css'
 import {AppBar} from "./Components/AppBar";
-import {AppFooter} from "./Components/AppFooter";
+import {AppFooter} from "./Components/AppFooter/AppFooter";
 import {AppBody} from "./Components/AppBody";
-import {createTheme, ThemeProvider} from "@mui/material";
-import {ErrorAndInfoComponent} from "./Components/ErrorAndInfoComponent";
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {ErrorAndInfoComponent} from "./Components/ErrorAndInfo/ErrorAndInfoComponent";
 import {MEASUREMENT_ID} from "./AppConstants";
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
 
     return (
         <ThemeProvider theme={darkTheme}>
+            <CssBaseline/>
             <ErrorAndInfoComponent/>
             <AppBar/>
             <AppBody/>

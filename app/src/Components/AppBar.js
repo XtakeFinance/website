@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ConnectWalletButton} from "./ConnectWalletButton";
+import {ConnectWalletButton} from "./Utils/ConnectWalletButton";
 import xtakeBig from '../images/xtakeBig.png';
 import xtake from '../images/xtake.png';
 import {useDispatch} from "react-redux";

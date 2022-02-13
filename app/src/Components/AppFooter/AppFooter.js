@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Footer} from "antd/es/layout/layout";
-import {footerAbout, footerText} from "../AppConstants";
-import xtakeBig from '../images/xtakeBig.png';
+import {footerAbout, footerText} from "../../AppConstants";
+import xtakeBig from '../../images/xtakeBig.png';
 import {
     Column,
     FooterLink,

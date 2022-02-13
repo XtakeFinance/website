@@ -1,6 +1,6 @@
 import React from "react";
 import {useDispatch} from "react-redux";
-import {setMetamaskAlert} from "../Actions/walletActions";
+import {setMetamaskAlert} from "../../Actions/walletActions";
 import {Snackbar} from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';

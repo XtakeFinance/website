@@ -1,6 +1,6 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {METAMASK_INSTALLED, SHOW_UNSTAKE_ALERT} from "../Reducers";
+import {METAMASK_INSTALLED, SHOW_UNSTAKE_ALERT} from "../../Reducers";
 import {MetamaskAlert} from "./MetamaskAlert";
 import {TransactionProgress} from "./TransactionProgress";
 import {TransactionDetails} from "./TransactionDetails";

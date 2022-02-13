@@ -1,7 +1,7 @@
 import React from "react";
 import {InfoCircleOutlined, InfoCircleTwoTone} from "@ant-design/icons";
 import {Tooltip} from "@mui/material";
-import {secondaryTextColor} from "../AppConstants";
+import {secondaryTextColor} from "../../AppConstants";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 export const AppToolTip = ({text}) => {

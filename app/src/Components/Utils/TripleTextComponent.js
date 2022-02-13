@@ -1,5 +1,5 @@
 import React from "react";
-import {secondaryTextColor} from "../AppConstants";
+import {secondaryTextColor} from "../../AppConstants";
 import Title from "antd/lib/typography/Title";
 
 export const TripleTextComponent = ({header, title, bottomText}) => {

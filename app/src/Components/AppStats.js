@@ -26,9 +26,9 @@ export const CardComponent = ({header, subtext, icon}) => {
     return (<div
             style={{
                 borderRadius: "10px",
-                width: 200,
+                width: 225,
                 background: "#1A1A1A",
-                padding: "8%",
+                padding: "5%",
                 border: "1px solid #333333"
             }}
         >

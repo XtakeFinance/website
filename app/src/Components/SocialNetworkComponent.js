@@ -1,5 +1,5 @@
 import React from "react";
-import {TripleTextComponent} from "./TripleTextComponent";
+import {TripleTextComponent} from "./Utils/TripleTextComponent";
 import {Space} from "antd";
 import {Link} from "@mui/material";
 import {faDiscord, faTwitter, faTelegram} from "@fortawesome/free-brands-svg-icons"
@@ -36,7 +36,7 @@ export const SocialMediaComponent = ({icon, text, href}) => {
 export const SocialNetworkComponent = () => {
 
     return (
-        <div style={{padding: "5%"}}>
+        <div style={{padding: "4%"}}>
             <TripleTextComponent {...propsForTripleTextComponent} />
             <Space size={'large'} wrap
                    style={{minWidth: "100%", justifyContent: "center", padding: "0%"}}>

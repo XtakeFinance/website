@@ -2,11 +2,11 @@ import React, {useState} from "react";
 import {Input, InputNumber} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {toNumber} from "lodash/lang";
-import * as actions from "../Actions/transactionActions";
+import * as actions from "../../Actions/transactionActions";
 import {TextField} from "@mui/material";
-import {AVAX_BALANCE} from "../Reducers";
-import avax_logo from "../images/Avalanche_AVAX_RedWhite.png"
-import {appColor} from "../AppConstants";
+import {AVAX_BALANCE} from "../../Reducers";
+import avax_logo from "../../images/Avalanche_AVAX_RedWhite.png"
+import {appColor} from "../../AppConstants";
 
 
 export const AvaxInput = () => {

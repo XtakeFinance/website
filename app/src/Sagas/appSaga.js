@@ -14,7 +14,7 @@ import {AVALANCHE_TESTNET, liquidStakingContractABI, liquidStakingContractAddres
 import {tokenFilter} from "../Utils/walletUtils";
 import {ethers} from "ethers";
 import _ from "lodash"
-import {METAMASK_NOT_INSTALLED} from "../Components/MetamaskAlert";
+import {METAMASK_NOT_INSTALLED} from "../Components/ErrorAndInfo/MetamaskAlert";
 
 export const SET_BALANCE_SUCCESS = "SET_BALANCE_SUCCESS";
 export const SET_EXCHANGE_RATE_SUCCESS = "SET_EXCHANGE_RATE_SUCCESS";

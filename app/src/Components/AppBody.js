@@ -6,9 +6,9 @@ import {StakeUnstakeButtonGroup} from "./StakeUnstakeButtonGroup";
 import {StakeUnstakeComponent} from "./StakeUnstakeComponent";
 import {Steps} from "./Steps";
 import {RoadMapComponent} from "./RoadMapComponent";
-import {FAQComponent} from "./FAQComponent";
+import {FAQComponent} from "./FAQ/FAQComponent";
 import {HowtoStakeComponent} from "./HowtoStakeComponent";
-import {DividerComponent} from "./DividerComponent";
+import {DividerComponent} from "./Utils/DividerComponent";
 import {SocialNetworkComponent} from "./SocialNetworkComponent";
 
 export const AppBody = () => {

@@ -1,11 +1,11 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import * as actions from "../Actions/transactionActions";
+import * as actions from "../../Actions/transactionActions";
 import {toNumber} from "lodash/lang";
 import {Input, InputNumber} from "antd";
-import xavax_logo from "../images/xtake.png";
-import {appColor} from "../AppConstants";
-import {STK_AVAX_BALANCE} from "../Reducers";
+import xavax_logo from "../../images/xtake.png";
+import {appColor} from "../../AppConstants";
+import {STK_AVAX_BALANCE} from "../../Reducers";
 
 export const StkAvaxInput = () => {
 

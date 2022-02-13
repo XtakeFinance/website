@@ -1,6 +1,6 @@
 import React from "react";
-import {FAILURE, SUCCESS} from "../Actions/constants";
-import * as actions from "../Actions/transactionActions";
+import {FAILURE, SUCCESS} from "../../Actions/constants";
+import * as actions from "../../Actions/transactionActions";
 import {useDispatch, useSelector} from "react-redux";
 import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -9,8 +9,8 @@ import {faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons";
 import {makeStyles} from '@mui/styles';
 
 import {Dialog, DialogActions, DialogContent, DialogContentText, IconButton, Link} from "@mui/material";
-import {IS_STAKING, STK_AVAX_INPUT} from "../Reducers";
-import {appColor} from "../AppConstants";
+import {IS_STAKING, STK_AVAX_INPUT} from "../../Reducers";
+import {appColor} from "../../AppConstants";
 
 const useStyles = makeStyles(theme => ({
     paper: {

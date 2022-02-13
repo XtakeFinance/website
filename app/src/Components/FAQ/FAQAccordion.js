@@ -7,9 +7,9 @@ import {ExpandMore} from '@material-ui/icons';
 import {AccordionActions, Button, Divider} from '@material-ui/core';
 import {Accordion, AccordionDetails, AccordionSummary, Typography} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {cardBg, DESKTOP, LAPTOP, MOBILE, secondaryTextColor, TAB} from "../AppConstants";
+import {cardBg, DESKTOP, LAPTOP, MOBILE, secondaryTextColor, TAB} from "../../AppConstants";
 import {useSelector} from "react-redux";
-import {DEVICE_DIMENSION, DEVICE_TYPE} from "../Reducers";
+import {DEVICE_DIMENSION, DEVICE_TYPE} from "../../Reducers";
 
 
 const padding = {
@@ -35,7 +35,7 @@ export const FAQAccordion = () => {
 
 
     return (
-        <div style={{minWidth: "100%", justifyContent: "center", padding: padding[deviceType]}}>
+        <div style={{minWidth: "100%", justifyContent: "center", }}>
             <Accordion disableGutters elevation={0} sx={{border: "1px solid #333333"}}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}

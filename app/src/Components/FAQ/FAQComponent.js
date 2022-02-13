@@ -1,7 +1,7 @@
 import React from "react";
-import {TripleTextComponent} from "./TripleTextComponent";
-import {appColor} from "../AppConstants";
-import {createTheme, Link, ThemeProvider} from "@mui/material";
+import {TripleTextComponent} from "../Utils/TripleTextComponent";
+import {appColor} from "../../AppConstants";
+import {Container, createTheme, Link, ThemeProvider} from "@mui/material";
 import {FAQAccordion} from "./FAQAccordion";
 
 
@@ -22,12 +22,10 @@ const darkTheme = createTheme({
 export const FAQComponent = () => {
 
     return (
-        <div style={{padding:"5%"}}>
+        <Container maxWidth={"md"} sx={{padding:"4%"}}>
             <TripleTextComponent {...propsForTripleTextComponent}/>
-            <ThemeProvider theme={darkTheme}>
                 <FAQAccordion/>
-            </ThemeProvider>
-        </div>
+        </Container>
     )
 
 }

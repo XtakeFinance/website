@@ -1,7 +1,7 @@
 import React from "react";
 import {Image} from "antd";
 
-import xtake from '../images/xtakeBig.png';
+import xtake from '../../images/xtakeBig.png';
 
 export const Logo = () => {
   return (

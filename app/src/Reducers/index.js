@@ -30,12 +30,13 @@ export const ACCOUNT = "account";
 export const SHOW_UNSTAKE_ALERT = "SHOW_UNSTAKE_ALERT"
 export const DEVICE_DIMENSION = "DEVICE_DIMENSION"
 export const METAMASK_INSTALLED = "METAMASK_INSTALLED"
-export const DEVICE_TYPE = "DEVICE_TYPE"
+export const DEVICE_TYPE = "DEVICE_TYPE";
+export const IS_CONNECTED = "isConnected"
 
 
 const reducers = combineReducers({
     account: accountReducer,
-    isConnected: connectionReducer,
+    [IS_CONNECTED]: connectionReducer,
     [BALANCE]: balanceReducer,
     [AVAX_INPUT]: avaxInputReducer,
     [STK_AVAX_INPUT]: stkAvaxInputReducer,
