@@ -11,6 +11,7 @@ import * as actions from "../../Actions/transactionActions";
 import {setBalance} from "../../Actions/walletActions";
 import {Button} from "antd";
 import Moralis from "moralis";
+import {STAKED} from "../../Utils/messageUtils";
 
 export const StakeButton = () => {
 
@@ -39,7 +40,7 @@ export const StakeButton = () => {
             console.log(receipt)
 
             dispatch(actions.transactionCompleted());
-            dispatch(actions.setTransactionDetails(false, stakeTxn));
+            dispatch(actions.setTransactionDetails(false, {type: STAKED, txn: stakeTxn, amount: avaxInput}));
 
             dispatch(setBalance())
 

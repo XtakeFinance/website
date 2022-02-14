@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import * as actions from "../../Actions/transactionActions";
 import {toNumber} from "lodash/lang";
@@ -6,6 +6,7 @@ import {Input, InputNumber} from "antd";
 import xavax_logo from "../../images/xtake.png";
 import {appColor} from "../../AppConstants";
 import {STK_AVAX_BALANCE} from "../../Reducers";
+import {Button} from "@mui/material";
 
 export const StkAvaxInput = () => {
 
@@ -13,15 +14,24 @@ export const StkAvaxInput = () => {
 
     const balance = useSelector(state => state[STK_AVAX_BALANCE])
 
+    const [value, setValue] = useState(0.0);
 
     const onChangeHandler = (e) => {
         try {
             // const stkAvaxToReedem = toNumber(e.target["valueAsNumber"]);
+            setValue(e.target.value)
             const stkAvaxToReedem = toNumber(e.target.value);
             dispatch(actions.setStkAvaxInput(stkAvaxToReedem));
         } catch (e) {
             console.log("some error")
         }
+    }
+
+    const maxHandler = () => {
+        dispatch(actions.setStkAvaxInput(balance));
+
+        setValue(balance)
+
     }
 
     return (
@@ -41,14 +51,16 @@ export const StkAvaxInput = () => {
                                    textAlign: "right",
                                    fontSize: "24px"
                                }}
-
+                               value={value}
                                onChange={onChangeHandler}
                                inputMode={"numeric"}
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td colSpan="2">Balance: {balance} xAVAX <span style={{color: appColor}}>(Max)</span></td>
+                    <td onClick={maxHandler} colSpan="2">Balance: {balance} xAVAX<Button color={"error"}
+                                                                                         variant={"text"}>(Max)</Button>
+                    </td>
                 </tr>
             </table>
         </div>

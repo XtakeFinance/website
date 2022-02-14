@@ -21,6 +21,8 @@ import {EmptyComponent} from "../Utils/UtilComponents";
 import {setTransactionInProgress} from "../../Actions/transactionActions";
 import * as actions from "../../Actions/transactionActions";
 import {setBalance} from "../../Actions/walletActions";
+import {CLAIMED, STAKED} from "../../Utils/messageUtils";
+import {bigNumberToEther} from "../../Utils/ethersUtils";
 
 function createData(id, claimAmount, deadline) {
     return {id, claimAmount, deadline};
@@ -92,7 +94,7 @@ export function ClaimTableComponent() {
 
     const xAvaxBalance = useSelector((state) => state[STK_AVAX_BALANCE])
 
-    console.log({account})
+    // console.log({account})
 
     const dispatch = useDispatch()
 
@@ -103,15 +105,14 @@ export function ClaimTableComponent() {
             const signer = provider.getSigner();
             const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
             const data = await liquidStakingContract.claims(account);
-            console.log({data})
+            // console.log({data})
             setClaims(filterClaims(data))
-
         } catch (e) {
             console.log(e)
         }
     }
 
-    const claim = async (id) => {
+    const claim = async (id, amount) => {
         try {
             dispatch(setTransactionInProgress())
             const {ethereum} = window
@@ -121,7 +122,7 @@ export function ClaimTableComponent() {
             const claimTxn = await liquidStakingContract.claim(id);
             await claimTxn.wait(NO_OF_BLOCK_CONFIRMATIONS);
             dispatch(actions.transactionCompleted());
-            dispatch(actions.setTransactionDetails(false, claimTxn));
+            dispatch(actions.setTransactionDetails(false, {type: CLAIMED, txn: claimTxn, amount}));
             dispatch(setBalance())
         } catch (error) {
             dispatch(actions.transactionCompleted());
@@ -146,7 +147,7 @@ export function ClaimTableComponent() {
         setRowsPerPage(e.target.value)
     }
 
-    console.log({claims})
+    // console.log({claims})
 
     if (_.isEmpty(claims)) {
         return <EmptyComponent/>
@@ -154,7 +155,7 @@ export function ClaimTableComponent() {
 
     const curDate = new Date();
 
-    console.log({curDate})
+    // console.log({curDate})
 
 
     return (
@@ -177,8 +178,8 @@ export function ClaimTableComponent() {
                                 <TableCell>
                                     {
                                         row["deadline"].getTime() < curDate.getTime() ?
-                                            <Button color={"error"} onClick={() => {
-                                                claim(row.id)
+                                            <Button variant={"outlined"} color={"error"} onClick={() => {
+                                                claim(row.id, row.claimAmount)
                                             }}>claim</Button> :
                                             beautifyDate(row["deadline"].toString())
                                     }

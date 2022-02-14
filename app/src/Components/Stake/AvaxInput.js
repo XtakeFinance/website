@@ -3,10 +3,13 @@ import {Input, InputNumber} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {toNumber} from "lodash/lang";
 import * as actions from "../../Actions/transactionActions";
-import {TextField} from "@mui/material";
+import {Button, Link, TextField} from "@mui/material";
 import {AVAX_BALANCE} from "../../Reducers";
 import avax_logo from "../../images/Avalanche_AVAX_RedWhite.png"
-import {appColor} from "../../AppConstants";
+import {appColor, liquidStakingContractABI, liquidStakingContractAddress} from "../../AppConstants";
+import {ethers} from "ethers";
+import {filterClaims} from "../../Utils/claimUtils";
+import {bigNumberToEther} from "../../Utils/ethersUtils";
 
 
 export const AvaxInput = () => {
@@ -21,6 +24,7 @@ export const AvaxInput = () => {
         try {
             // console.log(e.target["valueAsNumber"])
             // const avaxToStake = toNumber(e);
+            setValue(e.target.value)
             const avaxToStake = toNumber(e.target.value);
             console.log({avaxToStake})
             // dispatch(actions.setAvaxInput(e.target["valueAsNumber"]));
@@ -28,6 +32,24 @@ export const AvaxInput = () => {
         } catch (e) {
             console.log("some error")
         }
+    }
+
+    const maxHandler = async () => {
+        const options = {
+            value: ethers.utils.parseEther(parseInt(balance).toString()),
+
+        }
+        const {ethereum} = window
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
+        const result = await liquidStakingContract.estimateGas.deposit(options)
+        const gasFeeData = await provider.getFeeData()
+        const maxFeePerGas = bigNumberToEther(gasFeeData["maxFeePerGas"])
+        const transactionFees = result.toNumber() * (maxFeePerGas)
+        const toStake = balance-transactionFees
+        dispatch(actions.setAvaxInput(toStake));
+        setValue(toStake)
     }
 
     return (
@@ -46,14 +68,14 @@ export const AvaxInput = () => {
                                    textAlign: "right",
                                    fontSize: "24px"
                                }}
-
+                               value={value}
                                onChange={onChangeHandler}
                                inputMode={"numeric"}
                         />
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">Balance: {balance} AVAX <span style={{color: appColor}}>(Max)</span></td>
+                    <td onClick={maxHandler} colspan="2">Balance: {balance}AVAX<Button color={"error"} variant={"text"}>(Max)</Button></td>
                 </tr>
             </table>
         </div>

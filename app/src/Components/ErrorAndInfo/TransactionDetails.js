@@ -11,6 +11,7 @@ import {makeStyles} from '@mui/styles';
 import {Dialog, DialogActions, DialogContent, DialogContentText, IconButton, Link} from "@mui/material";
 import {IS_STAKING, STK_AVAX_INPUT} from "../../Reducers";
 import {appColor} from "../../AppConstants";
+import {transactionSuccessMessage} from "../../Utils/messageUtils";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -87,10 +88,7 @@ export const TransactionDetails = ({error, details}) => {
                                         <br/>
                                         <div style={{fontSize: "16px"}}>
                                             {
-                                                isStaking ?
-                                                    `${avaxInput} AVAX Successfully Staked`
-                                                    :
-                                                    `Your request has been received. You will get your ${stkAvaxInput} AVAX within 2 weeks.`
+                                                transactionSuccessMessage(details)
                                             }
                                         </div>
                                         <p style={{fontSize: "12px", paddingTop: "10px", opacity: "0.5"}}>Check the
@@ -99,7 +97,7 @@ export const TransactionDetails = ({error, details}) => {
                                         <div><Link underline={"none"}
                                                    target={"_blank"}
                                                    style={{color: appColor, fontSize: "18px", fontWeight: "bold"}}
-                                                   href={`https://testnet.snowtrace.io/tx/${details["hash"]}`}>View on
+                                                   href={`https://testnet.snowtrace.io/tx/${details["txn"]["hash"]}`}>View on
                                             Block
                                             Explorer <FontAwesomeIcon color={appColor} icon={faExternalLinkAlt}/></Link>
                                         </div>

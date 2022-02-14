@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Moralis from "moralis";
 import {unstakeAlert} from "../../Actions/transactionActions";
 import {setBalance} from "../../Actions/walletActions";
+import {STAKED, UNSTAKED} from "../../Utils/messageUtils";
 
 export const UnstakeButton = () => {
 
@@ -72,7 +73,7 @@ export const UnstakeButton = () => {
             };
 
             dispatch(actions.transactionCompleted());
-            dispatch(actions.setTransactionDetails(false, unStakeTxn));
+            dispatch(actions.setTransactionDetails(false, {type: UNSTAKED, txn: unStakeTxn, amount: stkAvaxInput}));
             dispatch(unstakeAlert(true))
             dispatch(setBalance())
         } catch (error) {
