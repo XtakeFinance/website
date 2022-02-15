@@ -1,5 +1,5 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {DELAYED_UNSTAKE_FEE, DEPOSIT_FEE, STK_AVAX_BALANCE, STK_AVAX_INPUT, UNSTAKE_NOW_FEE} from "../../Reducers";
 import {Card, Divider, Space} from "antd";
 import {ConnectWalletButton} from "../Utils/ConnectWalletButton";
@@ -12,6 +12,7 @@ import {ClaimTableComponent} from "./ClaimTableComponent";
 import {DelayedAndInstantUnstakeComponent} from "./DelayedAndInstantUnstakeComponent";
 import {Container} from "@mui/material";
 import {EmptyComponent} from "../Utils/UtilComponents";
+import {resetInput} from "../../Actions/transactionActions";
 
 
 const withdrawalFeeText = "There is 0% fee for unstaking your xAVAX and receiving AVAX."
@@ -26,8 +27,14 @@ export const UnstakeComponent = () => {
     const unstakeNowFee = useSelector(state => state[UNSTAKE_NOW_FEE])
     const delayedUnstakeFee = useSelector(state => state[DELAYED_UNSTAKE_FEE])
 
+    const dispatch = useDispatch()
 
-
+    useEffect(()=>{
+        return () => {
+            console.log("unmount")
+            dispatch(resetInput())
+        }
+    },[])
 
 
     return (

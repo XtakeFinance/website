@@ -26,12 +26,6 @@ export const StakeComponent = () => {
 
     const recieveTokens = (1 / exchangeRate) * avaxInput;
 
-    useEffect(()=>{
-        return () => {
-            dispatch(resetInput())
-        }
-    })
-
     return (
         // <Space wrap style={{minWidth: "100%", justifyContent: "center", padding: "2%"}}>
 
