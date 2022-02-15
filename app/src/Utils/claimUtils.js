@@ -1,21 +1,29 @@
 import _ from "lodash"
 
-import {BigNumber, ethers} from "ethers"
+import {ethers} from "ethers"
 
 const DEADLINE = "deadline"
-const AVAX_TO_RETURN = "avaxToReturn"
+const AVAX_TO_RETURN = "weiToReturn"
 const ID = "id"
+const USER = "user"
 
 export const filterClaims = (claims) => {
 
     const validClaims = _.filter(claims, (claim) => {
-        const address = _.parseInt(claim[1], 16)
-        const claimAmount = _.parseInt(claim[2], 16)
-        const deadline = _.parseInt(claim[3], 16)
+        // const address = _.parseInt(claim[1], 16)
+        // const claimAmount = _.parseInt(claim[2], 16)
+        // const deadline = _.parseInt(claim[3], 16)
+
+        const address = _.parseInt(claim[USER], 16)
+        const claimAmount = ethers.utils.formatEther(claim[AVAX_TO_RETURN])
+        const deadline = claim[DEADLINE].toNumber
+
 
         return address !== 0 && claimAmount !== 0 && deadline !== 0
 
     })
+
+    // console.log({validClaims})
 
     const validClaimObjects = _.map(validClaims, validClaim => {
         const id = validClaim[ID].toNumber()

@@ -161,7 +161,7 @@ export function ClaimTableComponent() {
     return (
         <>
             <Divider orientation="left" plain style={{color: "white", borderColor: "#333333"}}/>
-            <TableContainer component={Paper} sx={{maxHeight: 440, minWidth: "100%"}}>
+            <TableContainer component={Paper} sx={{maxHeight: 330, minWidth: "100%"}}>
                 <Table stickyHeader={true} aria-label="simple table">
                     <TableHead>
                         <TableRow>

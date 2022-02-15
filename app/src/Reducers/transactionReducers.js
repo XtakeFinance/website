@@ -1,7 +1,7 @@
 import {
     RESET_INPUT,
     SET_AVAX_INPUT,
-    SET_EXCHANGE_RATE,
+    SET_EXCHANGE_RATE, SET_INSTANT_UNSTAKE,
     SET_STAKE_UNSTAKE,
     SET_STK_AVAX_INPUT,
     SET_TRANSACTION_DETAILS,
@@ -77,6 +77,15 @@ export const setStakeUnstakeReducer = (state = true, action) => {
 export const unstakeAlertReducer = (state = false, action) => {
     switch (action.type) {
         case SET_UNSTAKE_ALERT:
+            return action.payload
+        default:
+            return state
+    }
+}
+
+export const unstakeTypeReducer = (state = true, action) => {
+    switch (action.type) {
+        case SET_INSTANT_UNSTAKE:
             return action.payload
         default:
             return state

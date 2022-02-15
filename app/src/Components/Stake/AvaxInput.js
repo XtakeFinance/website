@@ -26,7 +26,7 @@ export const AvaxInput = () => {
             // const avaxToStake = toNumber(e);
             setValue(e.target.value)
             const avaxToStake = toNumber(e.target.value);
-            console.log({avaxToStake})
+            // console.log({avaxToStake})
             // dispatch(actions.setAvaxInput(e.target["valueAsNumber"]));
             dispatch(actions.setAvaxInput(avaxToStake));
         } catch (e) {

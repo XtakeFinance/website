@@ -1,6 +1,6 @@
-import React from "react";
-import {AVAX_BALANCE} from "../../Reducers";
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {AVAX_BALANCE, DEPOSIT_FEE} from "../../Reducers";
+import {useDispatch, useSelector} from "react-redux";
 import {Card, Divider, Space} from "antd";
 
 import {ConnectWalletButton} from "../Utils/ConnectWalletButton";
@@ -9,18 +9,28 @@ import {StakeButton} from "./StakeButton";
 import {xAVAX} from "../../AppConstants";
 import {AppToolTip} from "../Utils/AppToolTip";
 import {Container} from "@mui/material";
+import {resetInput} from "../../Actions/transactionActions";
 
 export const exchangeRateText = "xAVAX/AVAX price increases because staking rewards are accumulated into the AVAX stake pool. Therefore, the ratio is not 1:1. This ratio only goes up with time."
 const depositFeeText = "There is 0% fee for staking your AVAX and receiving xAVAX."
 
 export const StakeComponent = () => {
 
+    const dispatch = useDispatch()
+
+    const depositFee = useSelector(state => state[DEPOSIT_FEE])
     const isConnected = useSelector(state => state.isConnected)
     const balance = useSelector(state => state[AVAX_BALANCE])
     const exchangeRate = useSelector(state => state.exchangeRate)
     const avaxInput = useSelector(state => state.avaxInput)
 
     const recieveTokens = (1 / exchangeRate) * avaxInput;
+
+    useEffect(()=>{
+        return () => {
+            dispatch(resetInput())
+        }
+    })
 
     return (
         // <Space wrap style={{minWidth: "100%", justifyContent: "center", padding: "2%"}}>
@@ -57,7 +67,7 @@ export const StakeComponent = () => {
                 </tr>
                 <tr>
                     <td>Deposit Fee <AppToolTip text={depositFeeText}/></td>
-                    <td style={{textAlign: "right"}}>0%</td>
+                    <td style={{textAlign: "right"}}>{depositFee}%</td>
                 </tr>
             </table>
         </Card>

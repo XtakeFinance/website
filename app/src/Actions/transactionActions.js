@@ -1,6 +1,6 @@
 import {
     RESET_INPUT,
-    SET_AVAX_INPUT, SET_EXCHANGE_RATE, SET_STAKE_UNSTAKE, SET_STK_AVAX_INPUT,
+    SET_AVAX_INPUT, SET_EXCHANGE_RATE, SET_INSTANT_UNSTAKE, SET_STAKE_UNSTAKE, SET_STK_AVAX_INPUT,
     SET_TRANSACTION_DETAILS,
     SET_TRANSACTION_IN_PROGRESS, SET_UNSTAKE_ALERT, UNSET_TRANSACTION_DETAILS,
     UNSET_TRANSACTION_IN_PROGRESS
@@ -73,5 +73,12 @@ export const setExchangeRate = (window) => {
     return {
         type: SET_EXCHANGE_RATE,
         payload: window
+    }
+}
+
+export const setInstantUnstake = (payload) => {
+    return {
+        type: SET_INSTANT_UNSTAKE,
+        payload
     }
 }

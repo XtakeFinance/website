@@ -37,7 +37,7 @@ export const StakeButton = () => {
 
             const stakeTxn = await Moralis.executeFunction(options);
             const receipt = await stakeTxn.wait(NO_OF_BLOCK_CONFIRMATIONS);
-            console.log(receipt)
+            // console.log(receipt)
 
             dispatch(actions.transactionCompleted());
             dispatch(actions.setTransactionDetails(false, {type: STAKED, txn: stakeTxn, amount: avaxInput}));

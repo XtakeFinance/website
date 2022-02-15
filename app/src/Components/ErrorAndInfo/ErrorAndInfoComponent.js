@@ -4,6 +4,7 @@ import {METAMASK_INSTALLED, SHOW_UNSTAKE_ALERT} from "../../Reducers";
 import {MetamaskAlert} from "./MetamaskAlert";
 import {TransactionProgress} from "./TransactionProgress";
 import {TransactionDetails} from "./TransactionDetails";
+import {Disclaimer} from "./Disclaimer";
 
 export const ErrorAndInfoComponent = () => {
 
@@ -15,6 +16,7 @@ export const ErrorAndInfoComponent = () => {
 
     return (
         <>
+            {/*<Disclaimer/>*/}
             {showMetamaskAlert.error ? <MetamaskAlert {...showMetamaskAlert}></MetamaskAlert>:<></>}
             {isTransactionInProgress ? <TransactionProgress/> : <></>}
             {showTransactionDetails.show ? <TransactionDetails {...showTransactionDetails}/> : <></>}

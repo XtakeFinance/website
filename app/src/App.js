@@ -7,7 +7,8 @@ import {AppFooter} from "./Components/AppFooter/AppFooter";
 import {AppBody} from "./Components/AppBody";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {ErrorAndInfoComponent} from "./Components/ErrorAndInfo/ErrorAndInfoComponent";
-import {MEASUREMENT_ID} from "./AppConstants";
+import {appColor, DISCLAIMER_TEXT, MEASUREMENT_ID} from "./AppConstants";
+import {Alert} from "antd";
 
 function App() {
 

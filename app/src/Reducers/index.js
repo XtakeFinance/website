@@ -6,7 +6,7 @@ import {
     setTransactionDetailsReducer,
     setTransactionReducer,
     stkAvaxInputReducer,
-    unstakeAlertReducer
+    unstakeAlertReducer, unstakeTypeReducer
 } from "./transactionReducers";
 import {
     accountReducer,
@@ -17,6 +17,7 @@ import {
     stkAvaxBalanceReducer
 } from "./walletReducers";
 import {deviceDimensionUser, deviceTypeReducer} from "./userDeviceScreenReducers";
+import {delayedUnstakeFeeReducer, depositFeeReducer, rewardsFeeReducer, unstakeNowFeeReducer} from "./feeReducers";
 
 export const IS_STAKING = "isStaking";
 export const CONTRACTS = "contracts"
@@ -32,7 +33,11 @@ export const DEVICE_DIMENSION = "DEVICE_DIMENSION"
 export const METAMASK_INSTALLED = "METAMASK_INSTALLED"
 export const DEVICE_TYPE = "DEVICE_TYPE";
 export const IS_CONNECTED = "isConnected"
-
+export const UNSTAKE_TYPE = "unstakeTypeReducer"
+export const UNSTAKE_NOW_FEE = "unstakeNowFeeReducer"
+export const DELAYED_UNSTAKE_FEE = "delayedUnstakeFeeReducer"
+export const REWARDS_FEE = "rewardsFeeReducer"
+export const DEPOSIT_FEE = "depositFeeReducer"
 
 const reducers = combineReducers({
     account: accountReducer,
@@ -50,7 +55,12 @@ const reducers = combineReducers({
     [SHOW_UNSTAKE_ALERT]: unstakeAlertReducer,
     [DEVICE_DIMENSION]: deviceDimensionUser,
     [METAMASK_INSTALLED]: metamaskReducer,
-    [DEVICE_TYPE]: deviceTypeReducer
+    [DEVICE_TYPE]: deviceTypeReducer,
+    [UNSTAKE_TYPE]: unstakeTypeReducer,
+    [UNSTAKE_NOW_FEE] : unstakeNowFeeReducer,
+    [DELAYED_UNSTAKE_FEE] : delayedUnstakeFeeReducer,
+    [REWARDS_FEE] : rewardsFeeReducer,
+    [DEPOSIT_FEE] : depositFeeReducer
 })
 
 export default reducers
