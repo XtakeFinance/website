@@ -75,7 +75,7 @@ export const AvaxInput = () => {
                     </td>
                 </tr>
                 <tr>
-                    <td onClick={maxHandler} colspan="2">Balance: {balance}AVAX<Button color={"error"} variant={"text"}>(Max)</Button></td>
+                    <td onClick={maxHandler} colspan="2">Balance: {balance} AVAX<Button color={"error"} variant={"text"}>(Max)</Button></td>
                 </tr>
             </table>
         </div>
