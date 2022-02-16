@@ -7,6 +7,9 @@ import xavax_logo from "../../images/xtake.png";
 import {appColor} from "../../AppConstants";
 import {STK_AVAX_BALANCE} from "../../Reducers";
 import {Button} from "@mui/material";
+import {AppToolTip} from "../Utils/AppToolTip";
+
+const contract_address = <p>Import the following address if not already imported in your metamask wallet to see xAVAX: <br/> 0x9C83e39fF8c666A0737330e0da6e135d8A2D91a1</p>
 
 export const StkAvaxInput = () => {
 
@@ -58,7 +61,7 @@ export const StkAvaxInput = () => {
                     </td>
                 </tr>
                 <tr>
-                    <td onClick={maxHandler} colSpan="2">Balance: {balance} xAVAX<Button color={"error"}
+                    <td onClick={maxHandler} colSpan="2">Balance: {balance} xAVAX <AppToolTip text={contract_address}/><Button color={"error"}
                                                                                          variant={"text"}>(Max)</Button>
                     </td>
                 </tr>
