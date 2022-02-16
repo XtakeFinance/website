@@ -12,23 +12,23 @@ import {
 import {SET_EXCHANGE_RATE_SUCCESS} from "../Sagas/appSaga";
 
 
-export const avaxInputReducer = (state = 0.0, action) => {
+export const avaxInputReducer = (state = '', action) => {
     switch (action.type) {
         case SET_AVAX_INPUT:
             return action.payload
         case RESET_INPUT:
-            return 0.0
+            return ''
         default:
             return state
     }
 }
 
-export const stkAvaxInputReducer = (state = 0.0, action) => {
+export const stkAvaxInputReducer = (state = '', action) => {
     switch (action.type) {
         case SET_STK_AVAX_INPUT:
             return action.payload
         case RESET_INPUT:
-            return 0.0
+            return ''
         default:
             return state
     }

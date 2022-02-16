@@ -14,7 +14,7 @@ export const StkAvaxInput = () => {
 
     const balance = useSelector(state => state[STK_AVAX_BALANCE])
 
-    const [value, setValue] = useState(0.0);
+    const [value, setValue] = useState('');
 
     const onChangeHandler = (e) => {
         try {
