@@ -5,7 +5,7 @@ import {toNumber} from "lodash/lang";
 import {Input, InputNumber} from "antd";
 import xavax_logo from "../../images/xtake.png";
 import {appColor} from "../../AppConstants";
-import {STK_AVAX_BALANCE} from "../../Reducers";
+import {MIN_UNSTAKE_AMOUNT, STK_AVAX_BALANCE} from "../../Reducers";
 import {Button} from "@mui/material";
 import {AppToolTip} from "../Utils/AppToolTip";
 
@@ -16,15 +16,17 @@ export const StkAvaxInput = () => {
     const dispatch = useDispatch();
 
     const balance = useSelector(state => state[STK_AVAX_BALANCE])
-
+    const minUntakeAmount = useSelector(state => state[MIN_UNSTAKE_AMOUNT])
+    console.log({minUntakeAmount})
     const [value, setValue] = useState('');
 
     const onChangeHandler = (e) => {
         try {
             // const stkAvaxToReedem = toNumber(e.target["valueAsNumber"]);
             setValue(e.target.value)
-            const stkAvaxToReedem = toNumber(e.target.value);
-            dispatch(actions.setStkAvaxInput(stkAvaxToReedem));
+            const stkAvaxToReedem = toNumber(e.target.value); // check whether it is a valid number or not
+            console.log({stkAvaxToReedem})
+            dispatch(actions.setStkAvaxInput(e.target.value));
         } catch (e) {
             console.log("some error")
         }

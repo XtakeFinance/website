@@ -10,7 +10,8 @@ import TableRow from '@mui/material/TableRow';
 import {Button, MenuItem} from "@mui/material";
 import {Select} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {ethers} from "ethers";
+import Moralis from "moralis";
+
 import {liquidStakingContractABI, liquidStakingContractAddress, NO_OF_BLOCK_CONFIRMATIONS} from "../../AppConstants";
 import {beautifyDate, filterClaims} from "../../Utils/claimUtils";
 import {useMoralis} from "react-moralis";
@@ -18,38 +19,11 @@ import {Divider} from "antd";
 import _ from 'lodash';
 import {STK_AVAX_BALANCE} from "../../Reducers";
 import {EmptyComponent} from "../Utils/UtilComponents";
-import {setTransactionInProgress} from "../../Actions/transactionActions";
 import * as actions from "../../Actions/transactionActions";
+import {setTransactionInProgress} from "../../Actions/transactionActions";
 import {setBalance} from "../../Actions/walletActions";
-import {CLAIMED, STAKED} from "../../Utils/messageUtils";
-import {bigNumberToEther} from "../../Utils/ethersUtils";
-
-function createData(id, claimAmount, deadline) {
-    return {id, claimAmount, deadline};
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0,),
-    createData('Ice cream sandwich', 237, 10),
-    createData('Eclair', 262, 16.0,),
-    createData('Cupcake', 305, 3.7,),
-    createData('Gingerbread', 356, 16.0,),
-    createData('Frozen yoghurt', 159, 6.0,),
-    createData('Ice cream sandwich', 237, 9.0,),
-    createData('Eclair', 262, 16.0,),
-    createData('Cupcake', 305, 3.7,),
-    createData('Gingerbread', 356, 16.0,),
-    createData('Frozen yoghurt', 159, 6.0,),
-    createData('Ice cream sandwich', 237, 10),
-    createData('Eclair', 262, 16.0,),
-    createData('Cupcake', 305, 3.7,),
-    createData('Gingerbread', 356, 16.0,),
-    createData('Frozen yoghurt', 159, 6.0,),
-    createData('Ice cream sandwich', 237, 9.0,),
-    createData('Eclair', 262, 16.0,),
-    createData('Cupcake', 305, 3.7,),
-    createData('Gingerbread', 356, 16.0,),
-];
+import {CLAIMED} from "../../Utils/messageUtils";
+import {ethers} from "ethers";
 
 const DropDown = (props) => {
 
@@ -89,6 +63,7 @@ export function ClaimTableComponent() {
     const {
         account,
     } = useMoralis();
+
 
     const [claims, setClaims] = useState([])
 

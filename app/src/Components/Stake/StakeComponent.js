@@ -10,6 +10,7 @@ import {xAVAX} from "../../AppConstants";
 import {AppToolTip} from "../Utils/AppToolTip";
 import {Container} from "@mui/material";
 import {resetInput} from "../../Actions/transactionActions";
+import {calculateReturn} from "../../Utils/walletUtils";
 
 export const exchangeRateText = "xAVAX/AVAX price increases because staking rewards are accumulated into the AVAX stake pool. Therefore, the ratio is not 1:1. This ratio only goes up with time."
 const depositFeeText = "There is 0% fee for staking your AVAX and receiving xAVAX."
@@ -24,7 +25,7 @@ export const StakeComponent = () => {
     const exchangeRate = useSelector(state => state.exchangeRate)
     const avaxInput = useSelector(state => state.avaxInput)
 
-    const recieveTokens = (1 / exchangeRate) * avaxInput;
+    const recieveTokens = (1 / exchangeRate) * calculateReturn(avaxInput, depositFee);
 
     return (
         // <Space wrap style={{minWidth: "100%", justifyContent: "center", padding: "2%"}}>

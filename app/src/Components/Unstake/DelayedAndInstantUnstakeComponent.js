@@ -1,16 +1,18 @@
-import React, {useState} from "react";
+import React, {useEffect} from "react";
+
 import {useDispatch, useSelector} from "react-redux";
-import {DELAYED_UNSTAKE_FEE, DEVICE_DIMENSION, STK_AVAX_INPUT, UNSTAKE_NOW_FEE, UNSTAKE_TYPE} from "../../Reducers";
-import {StakeUnstakeComponentDivider} from "../Utils/DividerComponent";
 import Grid from "@mui/material/Grid";
 import Item from "@mui/material/List";
 import {makeStyles} from "@mui/styles";
-import {appColor, borderColor} from "../../AppConstants";
 import CheckCircleSharpIcon from '@mui/icons-material/CheckCircleSharp';
+
+import {StakeUnstakeComponentDivider} from "../Utils/DividerComponent";
 import {EmptyComponent} from "../Utils/UtilComponents";
-import {Typography} from "@mui/material";
 import {setInstantUnstake} from "../../Actions/transactionActions";
 import {calculateReturn} from "../../Utils/walletUtils";
+import {DELAYED_UNSTAKE_FEE, DEVICE_DIMENSION, STK_AVAX_INPUT, UNSTAKE_NOW_FEE, UNSTAKE_TYPE} from "../../Reducers";
+import {appColor, borderColor} from "../../AppConstants";
+
 
 const INSTANT_UNSTAKE_BORDER_COLOR = "INSTANT_UNSTAKE_BORDER_COLOR";
 const DELAYED_UNSTAKE_BORDER_COLOR = "DELAYED_UNSTAKE_BORDER_COLOR"
@@ -55,23 +57,16 @@ export const DelayedAndInstantUnstakeComponent = () => {
     const xAvax = useSelector(state => state[STK_AVAX_INPUT])
     const exchangeRate = useSelector(state => state.exchangeRate)
     const dimensions = useSelector(state => state[DEVICE_DIMENSION])
-    // console.log({unstakeNowFee, delayedUnstakeFee})
-    // const [instantUnstake, setInstantUnstake] = useState(true)
-    // const [bgColor, switchBgColor] = useState({instant: appColor, delayed: "black"});
 
     const switchColors = (clickedOnInstantUnstake) => {
         if (clickedOnInstantUnstake == instantUnstake) {
             return;
         }
         if (clickedOnInstantUnstake) {
-            // setInstantUnstake(true)
             dispatch(setInstantUnstake(true))
-            // switchBgColor({instant: appColor, delayed: "black"})
             return
         }
         dispatch(setInstantUnstake(false))
-        // setInstantUnstake(false)
-        // switchBgColor({instant: "black", delayed: appColor})
     }
 
 
@@ -93,7 +88,7 @@ export const DelayedAndInstantUnstakeComponent = () => {
                             <p>UNSTAKE NOW</p>
                             {/*<p>&#8776; {calculateReturn(xAvax, unstakeNowFee)} AVAX</p>*/}
                             <p>&#8776; {calculateReturn(xAvax, 1.65) * exchangeRate} AVAX</p>
-                            Unstake Fee: from 0.3%
+                            Unstake Fee: 0.3% - 3%
                             {/*Unstake Fee: {unstakeNowFee}%*/}
                         </div>
                     </Item>
@@ -119,39 +114,4 @@ export const DelayedAndInstantUnstakeComponent = () => {
 
 }
 
-
-/*
-
-
-                <Grid item xs={xs}>
-                    <Item>
-                        <div className={classes.item} style={{
-                            background: bgColor["instant"]
-                        }}
-                             onClick={() => switchColors(true)}
-                        >
-                            {instantUnstake ? <CircleTick/> : <EmptyComponent/>}
-                            <p>UNSTAKE NOW</p>
-                            <p>0 AVAX</p>
-                            Unstake Fee: 0%
-                        </div>
-                    </Item>
-                </Grid>
-                <Grid item xs={xs}>
-                    <Item>
-                        <div className={classes.item} style={{
-                            background: bgColor["delayed"]
-                        }}
-                             onClick={() => switchColors(false)}
-                        >
-                            {!instantUnstake ? <CircleTick/> : <EmptyComponent/>}
-                            <p>UNSTAKE IN - 14 DAYS</p>
-                            <p>0 AVAX</p>
-                            Unstake Fee: 0%
-                        </div>
-                    </Item>
-                </Grid>
-
-
-* */
 

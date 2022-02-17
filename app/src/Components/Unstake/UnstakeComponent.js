@@ -22,10 +22,6 @@ export const UnstakeComponent = () => {
     const isConnected = useSelector(state => state.isConnected)
     const balance = useSelector(state => state[STK_AVAX_BALANCE])
     const exchangeRate = useSelector(state => state.exchangeRate)
-    const stkAvaxInput = useSelector(state => state[STK_AVAX_INPUT])
-    const recieveTokens = exchangeRate * stkAvaxInput;
-    const unstakeNowFee = useSelector(state => state[UNSTAKE_NOW_FEE])
-    const delayedUnstakeFee = useSelector(state => state[DELAYED_UNSTAKE_FEE])
 
     const dispatch = useDispatch()
 

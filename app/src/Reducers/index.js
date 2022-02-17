@@ -17,7 +17,13 @@ import {
     stkAvaxBalanceReducer
 } from "./walletReducers";
 import {deviceDimensionUser, deviceTypeReducer} from "./userDeviceScreenReducers";
-import {delayedUnstakeFeeReducer, depositFeeReducer, rewardsFeeReducer, unstakeNowFeeReducer} from "./feeReducers";
+import {
+    delayedUnstakeFeeReducer,
+    depositFeeReducer,
+    minimumAvaxThatCanBeStakedReducer, minimumStkAvaxThatCanBeUnstakedReducer,
+    rewardsFeeReducer,
+    unstakeNowFeeReducer
+} from "./feeReducers";
 
 export const IS_STAKING = "isStaking";
 export const CONTRACTS = "contracts"
@@ -38,6 +44,10 @@ export const UNSTAKE_NOW_FEE = "unstakeNowFeeReducer"
 export const DELAYED_UNSTAKE_FEE = "delayedUnstakeFeeReducer"
 export const REWARDS_FEE = "rewardsFeeReducer"
 export const DEPOSIT_FEE = "depositFeeReducer"
+export const MIN_STAKE_AMOUNT = "MIN_STAKE_AMOUNT"
+export const MIN_UNSTAKE_AMOUNT = "MIN_UNSTAKE_AMOUNT"
+
+
 
 const reducers = combineReducers({
     account: accountReducer,
@@ -60,7 +70,9 @@ const reducers = combineReducers({
     [UNSTAKE_NOW_FEE] : unstakeNowFeeReducer,
     [DELAYED_UNSTAKE_FEE] : delayedUnstakeFeeReducer,
     [REWARDS_FEE] : rewardsFeeReducer,
-    [DEPOSIT_FEE] : depositFeeReducer
+    [DEPOSIT_FEE] : depositFeeReducer,
+    [MIN_STAKE_AMOUNT] : minimumAvaxThatCanBeStakedReducer,
+    [MIN_UNSTAKE_AMOUNT] : minimumStkAvaxThatCanBeUnstakedReducer
 })
 
 export default reducers

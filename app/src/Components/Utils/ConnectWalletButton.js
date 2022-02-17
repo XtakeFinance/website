@@ -1,18 +1,15 @@
 import React from "react";
 import {Button} from "antd";
 import {WalletOutlined} from '@ant-design/icons';
-import {
-    fetchClaimTickets,
-    resetBalance,
-    setAccount,
-    setBalance,
-    setConnection,
-    setMetamaskAlert
-} from "../../Actions/walletActions";
+import {resetBalance, setAccount, setBalance, setConnection, setMetamaskAlert} from "../../Actions/walletActions";
 import {resetInput} from "../../Actions/transactionActions";
 import {useDispatch} from "react-redux";
 import {useMoralis} from "react-moralis";
-import {METAMASK_NOT_INSTALLED} from "../ErrorAndInfo/MetamaskAlert";
+import {
+    METAMASK_NOT_INSTALLED,
+    MIN_STAKE_AMOUNT_ALLOWED,
+    UNABLE_TO_SWITCH_TO_AVALANCHE
+} from "../../Utils/messageUtils";
 import {
     AVALANCHE,
     AVALANCHE_CHAIN_RPC_URL,
@@ -20,7 +17,8 @@ import {
     AVALANCHE_TEST_NET_BLOCK_EXPLORER,
     AVALANCHE_TEST_NETWORK_ID,
     AVALANCHE_TEST_NETWORK_ID_HEX,
-    AVAX, stkAVAXContractAddress
+    AVAX,
+    stkAVAXContractAddress
 } from "../../AppConstants";
 
 
@@ -66,14 +64,18 @@ export const ConnectWalletButton = ({appBar}) => {
                 method: 'wallet_switchEthereumChain',
                 params: [{chainId: AVALANCHE_TEST_NETWORK_ID_HEX}], // Hexadecimal version of 80001, prefixed with 0x
             });
+            return true;
         } catch (error) {
             if (error.code === 4902) {
                 try {
                     await ethereum.request(AVALANACHE_TEST_NET_CONFIG);
+                    return true
                 } catch (addError) {
                     console.log('Did not add network');
+                    return false
                 }
             }
+            return false
         }
     }
 
@@ -119,7 +121,11 @@ export const ConnectWalletButton = ({appBar}) => {
             return
         }
         if (ethereum.networkVersion !== AVALANCHE_TEST_NETWORK_ID) {
-            await addAvalancheTestnetNetwork(ethereum)
+            const addedFujiChain = await addAvalancheTestnetNetwork(ethereum)
+            if(!addedFujiChain) {
+                dispatch(setMetamaskAlert({error: true, type: UNABLE_TO_SWITCH_TO_AVALANCHE}))
+                return
+            }
         }
         try {
             await authenticate({

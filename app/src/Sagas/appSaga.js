@@ -6,7 +6,7 @@ import {
     SET_DEVICE_DIMENSION,
     SET_DEVICE_TYPE,
     SET_EXCHANGE_RATE,
-    SET_METAMASK_INSTALLED, SET_REWARDS_FEE,
+    SET_METAMASK_INSTALLED, SET_MIN_AVAX_STAKE_AMOUNT, SET_MIN_STK_AVAX_UNSTAKE_AMOUNT, SET_REWARDS_FEE,
     SET_STK_AVAX_BALANCE, SET_UNSTAKE_NOW_FEE
 } from "../Actions/constants";
 import Moralis from "moralis";
@@ -14,8 +14,9 @@ import {AVALANCHE_TESTNET, liquidStakingContractABI, liquidStakingContractAddres
 import {tokenFilter} from "../Utils/walletUtils";
 import {ethers} from "ethers";
 import _ from "lodash"
-import {METAMASK_NOT_INSTALLED} from "../Components/ErrorAndInfo/MetamaskAlert";
+import {METAMASK_NOT_INSTALLED} from "../Utils/messageUtils";
 import {findFee} from "../Utils/feeUtils";
+import {bigNumberToEther} from "../Utils/ethersUtils";
 
 export const SET_BALANCE_SUCCESS = "SET_BALANCE_SUCCESS";
 export const SET_EXCHANGE_RATE_SUCCESS = "SET_EXCHANGE_RATE_SUCCESS";
@@ -33,12 +34,15 @@ const TREASURY_CUT = "treasuryCut"
 
 const fetchStkAvaxBalance = async () => {
     const tokenBalances = await Moralis.Web3API.account.getTokenBalances({chain: AVALANCHE_TESTNET});
-    return tokenFilter(tokenBalances) / (10 ** 18)
+    const xAvaxBalance = tokenFilter(tokenBalances);
+    const inEther = bigNumberToEther(xAvaxBalance)
+    return inEther
 }
 
 const fetchAvaxBalance = async () => {
     const AvaxBalance = await Moralis.Web3API.account.getNativeBalance({chain: AVALANCHE_TESTNET});
-    return AvaxBalance.balance / (10 ** 18)
+    const inEther = bigNumberToEther(AvaxBalance["balance"])
+    return inEther
 }
 
 const fetchExchangeRate = async (ethereum) => {
@@ -50,12 +54,13 @@ const fetchExchangeRate = async (ethereum) => {
     const totalAvax = _.parseInt(data["totalWei"], 16)
     const exchangeRate = poolTokenSupply === totalAvax ? 1 : totalAvax / poolTokenSupply
     const configData = await liquidStakingContract.config()
-    // console.log({configData})
-    const instantUnstakeFee = findFee(configData[FEE][INSTANT_UNSTAKE_FEE][TREASURY_CUT])
     const delayedUnstakeFee = findFee(configData[FEE][DELAYED_UNSTAKE_FEE])
     const depositFee = findFee(configData[FEE][DEPOSIT_FEE])
     const rewardFee = findFee(configData[FEE][REWARD_FEE])
-    return {exchangeRate, instantUnstakeFee, delayedUnstakeFee, depositFee, rewardFee}
+    const MIN_AVAX_DEPOSIT = bigNumberToEther(await liquidStakingContract.MIN_AVAX_DEPOSIT())
+    const MIN_TOKEN_WITHDRAWAL = bigNumberToEther(await liquidStakingContract.MIN_TOKEN_WITHDRAWAL())
+    const instantUnstakeFee = (await liquidStakingContract.getInstantUnstakeFee(100000000)) / 100
+    return {exchangeRate, instantUnstakeFee, delayedUnstakeFee, depositFee, rewardFee, MIN_AVAX_DEPOSIT, MIN_TOKEN_WITHDRAWAL}
 }
 
 function* getAccountBalance() {
@@ -95,7 +100,7 @@ function* setExchangeRateDetails(action) {
                 payload: {error: true, type: METAMASK_NOT_INSTALLED}
             });
         }
-        const {exchangeRate, instantUnstakeFee, delayedUnstakeFee, depositFee, rewardFee} = yield call(fetchExchangeRate, ethereum)
+        const {exchangeRate, instantUnstakeFee, delayedUnstakeFee, depositFee, rewardFee, MIN_AVAX_DEPOSIT, MIN_TOKEN_WITHDRAWAL} = yield call(fetchExchangeRate, ethereum)
         yield put({
             type: SET_EXCHANGE_RATE_SUCCESS,
             payload: exchangeRate
@@ -120,6 +125,15 @@ function* setExchangeRateDetails(action) {
             type: SET_REWARDS_FEE,
             payload: rewardFee
         })
+        yield put({
+            type: SET_MIN_STK_AVAX_UNSTAKE_AMOUNT,
+            payload: MIN_TOKEN_WITHDRAWAL
+        })
+        yield put({
+            type: SET_MIN_AVAX_STAKE_AMOUNT,
+            payload: MIN_AVAX_DEPOSIT
+        })
+
     } catch (e) {
     }
 }
@@ -136,29 +150,3 @@ export function* appSaga() {
     yield takeEvery(SET_EXCHANGE_RATE, setExchangeRateDetails);
     yield takeEvery(FETCH_CLAIM_TICKETS, fetchAndSetClaimTickets)
 }
-
-/*
-*
-*         yield put({
-            type: SET_EXCHANGE_RATE_SUCCESS,
-            payload: exchangeRate
-        })
-        yield put({
-            type: SET_UNSTAKE_NOW_FEE,
-            payload: instantUnstakeFee
-        })
-        yield put({
-            type: SET_DELAYED_UNSTAKE_FEE,
-            payload: delayedUnstakeFee
-        })
-        yield put({
-            type: SET_DEPOSIT_FEE,
-            payload: depositFee
-        })
-        yield put({
-            type: SET_REWARDS_FEE,
-            payload: rewardFee
-        })
-*
-*
-* */

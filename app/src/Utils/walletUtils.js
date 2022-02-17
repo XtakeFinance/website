@@ -13,6 +13,8 @@ export const tokenFilter = (tokens) => {
 }
 
 export const calculateReturn = (amount, fee) => {
+    if(isNaN(amount))
+        return 0
     return amount * (1 - (fee/100))
 }
 

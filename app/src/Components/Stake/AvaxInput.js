@@ -28,7 +28,7 @@ export const AvaxInput = () => {
             const avaxToStake = toNumber(e.target.value);
             // console.log({avaxToStake})
             // dispatch(actions.setAvaxInput(e.target["valueAsNumber"]));
-            dispatch(actions.setAvaxInput(avaxToStake));
+            dispatch(actions.setAvaxInput(e.target.value));
         } catch (e) {
             console.log("some error")
         }
@@ -80,32 +80,5 @@ export const AvaxInput = () => {
             </table>
         </div>
     )
-
-    // return (
-    //         <div style={{textAlign: "center", paddingBottom:"20px"}}>
-    //             <input type="number" style={{width:"100%", backgroundColor:"black", borderColor:"1px solid black"} } />
-    //         </div>
-    // )
-
-    // return (
-    //     <div style={{textAlign: "center", paddingBottom: "20px", color: "white"}}>
-    //         <TextField
-    //             fullWidth
-    //             label="avax"
-    //             id="fullWidth"
-    //             size="small"
-    //             type="number"
-    //             color={"error"}
-    //             InputProps={{ inputProps: { min: 0.0, step:0.1, defaultValue:0.0, color:"white",  } }}
-    //             sx={{ input: { color: 'white' } }}
-    //             onChange={onChangeHandler}
-    //         />
-    //     </div>
-    //
-    // )
-
-    //
-    //     <InputNumber style={{background:"black", width:"100%", color:"white", borderRadius:"7px"}} size={'large'} min={0.0} precision={2} step={0.1} defaultValue={0.0}
-    // onChange={onChangeHandler}/>
 
 }

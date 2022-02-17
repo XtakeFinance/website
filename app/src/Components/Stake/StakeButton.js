@@ -1,6 +1,6 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {AVAX_BALANCE} from "../../Reducers";
+import {AVAX_BALANCE, MIN_STAKE_AMOUNT} from "../../Reducers";
 import {
     AVALANCHE_TEST_NETWORK_ID_HEX,
     liquidStakingContractABI,
@@ -8,22 +8,34 @@ import {
     NO_OF_BLOCK_CONFIRMATIONS
 } from "../../AppConstants";
 import * as actions from "../../Actions/transactionActions";
-import {setBalance} from "../../Actions/walletActions";
+import {setBalance, setMetamaskAlert} from "../../Actions/walletActions";
 import {Button} from "antd";
 import Moralis from "moralis";
-import {STAKED} from "../../Utils/messageUtils";
+import {METAMASK_NOT_INSTALLED, MIN_STAKE_AMOUNT_ALLOWED, STAKED} from "../../Utils/messageUtils";
 
 export const StakeButton = () => {
 
     const dispatch = useDispatch();
+    const minStakeAmount = useSelector(state => state[MIN_STAKE_AMOUNT])
 
     const stakeAvax = async () => {
         try {
+
+            console.log({avaxInput, minStakeAmount})
+
+            if(isNaN(avaxInput)) {
+                return
+            }
 
             const disable = (balance <= avaxInput) || (avaxInput <= 0)
 
             if (disable) {
                 return
+            }
+
+            if (avaxInput < minStakeAmount) {
+                dispatch(setMetamaskAlert({error: true, type: MIN_STAKE_AMOUNT_ALLOWED, amount: minStakeAmount}))
+                return;
             }
 
             dispatch(actions.setTransactionInProgress());
@@ -63,7 +75,7 @@ export const StakeButton = () => {
 
 
     return (
-        <Button disabled={disabled} type="primary" style={{borderRadius: '5px', width: "100%"}} danger size={'large'}
+        <Button type="primary" style={{borderRadius: '5px', width: "100%"}} danger size={'large'}
                 onClick={onClickHandler}>
             Stake AVAX
         </Button>

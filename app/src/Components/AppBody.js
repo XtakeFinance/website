@@ -19,7 +19,6 @@ export const AppBody = () => {
             <StakeUnstakeButtonGroup/>
             <StakeUnstakeComponent/>
             <Steps/>
-            {/*<RoadMapComponent/>*/}
             <DividerComponent/>
             <FAQComponent/>
             <DividerComponent/>
