@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Footer} from "antd/es/layout/layout";
-import {footerAbout, footerText} from "../../AppConstants";
+import {footerAbout, footerText, stkAVAXContractABI, stkAVAXContractAddress} from "../../AppConstants";
 import xtakeBig from '../../images/xtakeBig.png';
 import {
     Column,
@@ -11,10 +11,26 @@ import {Link} from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Item from '@mui/material/List';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {ethers} from "ethers";
+import {bigNumberToEther} from "../../Utils/ethersUtils";
 
 export const AppFooter = () => {
     const [logo, setLogo] = useState(xtakeBig)
     const [dimension, setDimension] = useState({width: "153", height: "68"})
+
+    const fetchData = async () => {
+        const NODE_URL = "https://speedy-nodes-nyc.moralis.io/222dada6a915af81b865c7e0/avalanche/testnet"
+        const provider = new ethers.providers.JsonRpcProvider(NODE_URL)
+        const signer = provider.getSigner();
+        const balance = bigNumberToEther(await provider.getBalance("0x783796aE2A244Cf4B18FA6f11605740E99ee2Fb4"))
+        const xAvaxContract = new ethers.Contract(stkAVAXContractAddress, stkAVAXContractABI, provider)
+        const xAvaxBalance = bigNumberToEther(await xAvaxContract.balanceOf("0x783796aE2A244Cf4B18FA6f11605740E99ee2Fb4"))
+        console.log({xAvaxBalance})
+    }
+
+    useEffect(()=>{
+        // fetchData()
+    })
 
     return (
         <Footer style={{ flexGrow: 1, textAlign: 'left', color:"white", backgroundColor:"black" }}>

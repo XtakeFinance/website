@@ -27,7 +27,7 @@ export const UnstakeComponent = () => {
 
     useEffect(()=>{
         return () => {
-            console.log("unmount")
+            // console.log("unmount")
             dispatch(resetInput())
         }
     },[])

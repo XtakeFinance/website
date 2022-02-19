@@ -10,7 +10,14 @@ import {StakeUnstakeComponentDivider} from "../Utils/DividerComponent";
 import {EmptyComponent} from "../Utils/UtilComponents";
 import {setInstantUnstake} from "../../Actions/transactionActions";
 import {calculateReturn} from "../../Utils/walletUtils";
-import {DELAYED_UNSTAKE_FEE, DEVICE_DIMENSION, STK_AVAX_INPUT, UNSTAKE_NOW_FEE, UNSTAKE_TYPE} from "../../Reducers";
+import {
+    DELAYED_UNSTAKE_FEE,
+    DEVICE_DIMENSION,
+    IS_CONNECTED,
+    STK_AVAX_INPUT,
+    UNSTAKE_NOW_FEE,
+    UNSTAKE_TYPE
+} from "../../Reducers";
 import {appColor, borderColor} from "../../AppConstants";
 
 
@@ -87,9 +94,8 @@ export const DelayedAndInstantUnstakeComponent = () => {
                             {instantUnstake ? <CircleTick/> : <EmptyComponent/>}
                             <p>UNSTAKE NOW</p>
                             {/*<p>&#8776; {calculateReturn(xAvax, unstakeNowFee)} AVAX</p>*/}
-                            <p>&#8776; {calculateReturn(xAvax, 1.65) * exchangeRate} AVAX</p>
-                            Unstake Fee: 0.3% - 3%
-                            {/*Unstake Fee: {unstakeNowFee}%*/}
+                            <p>&#8776; {calculateReturn(xAvax, unstakeNowFee) * exchangeRate} AVAX</p>
+                            Unstake Fee: {unstakeNowFee}%
                         </div>
                     </Item>
                 </Grid>

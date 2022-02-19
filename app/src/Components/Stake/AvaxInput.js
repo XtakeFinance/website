@@ -22,6 +22,7 @@ export const AvaxInput = () => {
 
     const onChangeHandler = (e) => {
         try {
+            // console.log(e)
             // console.log(e.target["valueAsNumber"])
             // const avaxToStake = toNumber(e);
             setValue(e.target.value)
@@ -47,7 +48,7 @@ export const AvaxInput = () => {
         const gasFeeData = await provider.getFeeData()
         const maxFeePerGas = bigNumberToEther(gasFeeData["maxFeePerGas"])
         const transactionFees = result.toNumber() * (maxFeePerGas)
-        const toStake = balance-transactionFees
+        const toStake = balance - transactionFees
         dispatch(actions.setAvaxInput(toStake));
         setValue(toStake)
     }
@@ -80,5 +81,33 @@ export const AvaxInput = () => {
             </table>
         </div>
     )
+
+
+    // return (
+    //         <div style={{textAlign: "center", paddingBottom:"20px"}}>
+    //             <input type="number" style={{width:"100%", backgroundColor:"black", borderColor:"1px solid black"} } />
+    //         </div>
+    // )
+
+    // return (
+    //     <div style={{textAlign: "center", paddingBottom: "20px", color: "white"}}>
+    //         <TextField
+    //             fullWidth
+    //             label="avax"
+    //             id="fullWidth"
+    //             size="small"
+    //             type="number"
+    //             color={"error"}
+    //             InputProps={{ inputProps: { min: 0.0, step:0.1, defaultValue:0.0, color:"white",  } }}
+    //             sx={{ input: { color: 'white' } }}
+    //             onChange={onChangeHandler}
+    //         />
+    //     </div>
+    //
+    // )
+
+    //
+    //     <InputNumber style={{background:"black", width:"100%", color:"white", borderRadius:"7px"}} size={'large'} min={0.0} precision={2} step={0.1} defaultValue={0.0}
+    // onChange={onChangeHandler}/>
 
 }

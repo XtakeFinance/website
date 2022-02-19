@@ -12,6 +12,7 @@ import {setBalance, setMetamaskAlert} from "../../Actions/walletActions";
 import {Button} from "antd";
 import Moralis from "moralis";
 import {METAMASK_NOT_INSTALLED, MIN_STAKE_AMOUNT_ALLOWED, STAKED} from "../../Utils/messageUtils";
+import {validateInput} from "../../Utils/inputUtils";
 
 export const StakeButton = () => {
 
@@ -21,19 +22,17 @@ export const StakeButton = () => {
     const stakeAvax = async () => {
         try {
 
-            console.log({avaxInput, minStakeAmount})
-
             if(isNaN(avaxInput)) {
                 return
             }
 
-            const disable = (balance <= avaxInput) || (avaxInput <= 0)
+            const disable = validateInput(balance, avaxInput)
 
             if (disable) {
                 return
             }
 
-            if (avaxInput < minStakeAmount) {
+            if (parseFloat(avaxInput) < parseFloat(minStakeAmount)) {
                 dispatch(setMetamaskAlert({error: true, type: MIN_STAKE_AMOUNT_ALLOWED, amount: minStakeAmount}))
                 return;
             }

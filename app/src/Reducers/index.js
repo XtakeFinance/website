@@ -24,6 +24,7 @@ import {
     rewardsFeeReducer,
     unstakeNowFeeReducer
 } from "./feeReducers";
+import {priceOfAvaxReducer, totalAvaxLocked} from "./infoReducers";
 
 export const IS_STAKING = "isStaking";
 export const CONTRACTS = "contracts"
@@ -46,8 +47,8 @@ export const REWARDS_FEE = "rewardsFeeReducer"
 export const DEPOSIT_FEE = "depositFeeReducer"
 export const MIN_STAKE_AMOUNT = "MIN_STAKE_AMOUNT"
 export const MIN_UNSTAKE_AMOUNT = "MIN_UNSTAKE_AMOUNT"
-
-
+export const AVAX_PRICE_IN_DOLLARS = "AVAX_PRICE_IN_DOLLARS"
+export const TOTAL_AVAX_LOCKED = "TOTAL_AVAX_LOCKED"
 
 const reducers = combineReducers({
     account: accountReducer,
@@ -72,7 +73,9 @@ const reducers = combineReducers({
     [REWARDS_FEE] : rewardsFeeReducer,
     [DEPOSIT_FEE] : depositFeeReducer,
     [MIN_STAKE_AMOUNT] : minimumAvaxThatCanBeStakedReducer,
-    [MIN_UNSTAKE_AMOUNT] : minimumStkAvaxThatCanBeUnstakedReducer
+    [MIN_UNSTAKE_AMOUNT] : minimumStkAvaxThatCanBeUnstakedReducer,
+    [AVAX_PRICE_IN_DOLLARS] : priceOfAvaxReducer,
+    [TOTAL_AVAX_LOCKED] : totalAvaxLocked
 })
 
 export default reducers

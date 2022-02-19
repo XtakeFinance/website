@@ -57,13 +57,9 @@ export const DISCLAIMER_TEXT = "This is testnet-v0.1 launch. Bugs and issues are
     " We will stabilize the testnet over the next couples of weeks."
 
 
+export const SPEEDY_NODE_URL = "https://speedy-nodes-nyc.moralis.io/222dada6a915af81b865c7e0/avalanche/testnet"
 
-/*
-*
-* StakedAVAXToken Upgraded! Address:  0x9C83e39fF8c666A0737330e0da6e135d8A2D91a1
-LiquidityPool Upgraded! Address:  0x39d5D706B050aD19D735c27AC07c9351A1d8b8ef
-LiquidStaking Upgraded! Address: 0x4D8D4353b88B3dd250E8214962d963f71714247e
-* */
+
 
 
 

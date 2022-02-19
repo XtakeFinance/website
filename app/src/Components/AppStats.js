@@ -6,7 +6,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import xtake from './../images/xtake.png'
 import avax from './../images/Avalanche_AVAX_RedWhite.png'
 import {useSelector} from "react-redux";
-import {DEVICE_TYPE} from "../Reducers";
+import {AVAX_PRICE_IN_DOLLARS, DEVICE_TYPE, TOTAL_AVAX_LOCKED} from "../Reducers";
 import {DESKTOP, LAPTOP, MOBILE, TAB} from "../AppConstants";
 
 const COMING_SOON = "Coming Soon...";
@@ -45,10 +45,15 @@ export const CardComponent = ({header, subtext, icon}) => {
 
 export const AppStats = () => {
 
+    const avaxPrice = useSelector(state => state[AVAX_PRICE_IN_DOLLARS])
+    const totalAVAXLocked = useSelector(state => state[TOTAL_AVAX_LOCKED])
+
+
     const deviceType = useSelector(state => state[DEVICE_TYPE])
 
     return (<Space size={spaceSize[deviceType]} wrap
                    style={{minWidth: "100%", justifyContent: "center", padding: "2%", paddingTop: "1%"}}>
+            {/*<CardComponent header={"Total value locked"} subtext={`$${parseInt(avaxPrice * totalAVAXLocked)} USD`} icon={TVLIcon}/>*/}
             <CardComponent header={"Total value locked"} subtext={COMING_SOON} icon={TVLIcon}/>
             <CardComponent header={"Xtake's APY"} subtext={"9.72%"} icon={XtakeApyIcon}/>
             <CardComponent header={"Total AVAX Staked"} subtext={COMING_SOON} icon={AvaxIcon}/>

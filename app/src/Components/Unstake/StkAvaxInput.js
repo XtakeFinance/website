@@ -2,9 +2,8 @@ import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import * as actions from "../../Actions/transactionActions";
 import {toNumber} from "lodash/lang";
-import {Input, InputNumber} from "antd";
+import {Input} from "antd";
 import xavax_logo from "../../images/xtake.png";
-import {appColor} from "../../AppConstants";
 import {MIN_UNSTAKE_AMOUNT, STK_AVAX_BALANCE} from "../../Reducers";
 import {Button} from "@mui/material";
 import {AppToolTip} from "../Utils/AppToolTip";
@@ -17,7 +16,6 @@ export const StkAvaxInput = () => {
 
     const balance = useSelector(state => state[STK_AVAX_BALANCE])
     const minUntakeAmount = useSelector(state => state[MIN_UNSTAKE_AMOUNT])
-    console.log({minUntakeAmount})
     const [value, setValue] = useState('');
 
     const onChangeHandler = (e) => {
@@ -25,7 +23,7 @@ export const StkAvaxInput = () => {
             // const stkAvaxToReedem = toNumber(e.target["valueAsNumber"]);
             setValue(e.target.value)
             const stkAvaxToReedem = toNumber(e.target.value); // check whether it is a valid number or not
-            console.log({stkAvaxToReedem})
+            // console.log({stkAvaxToReedem})
             dispatch(actions.setStkAvaxInput(e.target.value));
         } catch (e) {
             console.log("some error")
@@ -70,29 +68,5 @@ export const StkAvaxInput = () => {
             </table>
         </div>
     )
-
-    // return (
-    //     <div style={{textAlign: "center", paddingBottom:"20px"}}>
-    //         <InputNumber style={{background:"black", width:"100%", color:"white", borderRadius:"7px"}} size={'large'} min={0.0} precision={2} step={0.1} defaultValue={0.0}
-    //                      onChange={onChangeHandler}/>
-    //     </div>
-    // )
-
-    // return (
-    //     <div style={{textAlign: "center", paddingBottom: "20px", color: "white"}}>
-    //         <TextField
-    //             fullWidth
-    //             label="stkAvax"
-    //             id="fullWidth"
-    //             size="small"
-    //             type="number"
-    //             color={"error"}
-    //             InputProps={{ inputProps: { min: 0.0, step:0.1, defaultValue:0.0, color:"white",  } }}
-    //             sx={{ input: { color: 'white' } }}
-    //             onChange={onChangeHandler}
-    //         />
-    //     </div>
-    //
-    // )
 
 }

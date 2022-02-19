@@ -20,6 +20,7 @@ import {
     UNSTAKED
 } from "../../Utils/messageUtils";
 import {toNumber} from "lodash/lang";
+import {validateInput} from "../../Utils/inputUtils";
 
 export const UnstakeButton = () => {
 
@@ -32,12 +33,12 @@ export const UnstakeButton = () => {
             if(isNaN(stkAvaxInput)) {
                 return
             }
-            const disable = (balance < stkAvaxInput) || (stkAvaxInput <= 0)
+            const disable = validateInput(balance, stkAvaxInput)
             if(disable) {
                 return;
             }
 
-            if (stkAvaxInput < minUntakeAmount) {
+            if (parseFloat(stkAvaxInput) < parseFloat(minUntakeAmount)) {
                 dispatch(setMetamaskAlert({error: true, type: MIN_UNSTAKE_AMOUNT_ALLOWED, amount: minUntakeAmount}))
                 return;
             }
@@ -84,7 +85,7 @@ export const UnstakeButton = () => {
         unStakeAvax();
     }
 
-    console.log({minUntakeAmount})
+    // console.log({minUntakeAmount})
 
     const disable = (balance < stkAvaxInput) || (stkAvaxInput <= 0)
 
