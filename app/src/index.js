@@ -8,12 +8,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
-const SERVER_URL = "https://rzzxlj379wtf.usemoralis.com:2053/server"
-const APP_ID = "Ke8AutNfbaAx6qKXG1yv4pdrHxxrnOzs1FYZpPWP"
+export const BITS_SERVER_URL = "https://w66dyodim54c.usemoralis.com:2053/server"
+export const BITS_APP_ID = "8WMITIl0khMVfPRSMO1g4r3UZTaMQhINH91HEjBO"
+
+export const SERVER_URL = "https://rzzxlj379wtf.usemoralis.com:2053/server"
+export const APP_ID = "Ke8AutNfbaAx6qKXG1yv4pdrHxxrnOzs1FYZpPWP"
 
 ReactDOM.render(
-    <MoralisProvider appId={APP_ID}
-                     serverUrl={SERVER_URL}>
+    <MoralisProvider appId={BITS_APP_ID}
+                     serverUrl={BITS_SERVER_URL}>
         <Provider store={store}>
             <App/>
         </Provider>

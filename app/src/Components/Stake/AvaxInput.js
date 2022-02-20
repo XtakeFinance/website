@@ -8,8 +8,11 @@ import {AVAX_BALANCE, IS_CONNECTED} from "../../Reducers";
 import avax_logo from "../../images/Avalanche_AVAX_RedWhite.png"
 import {appColor, liquidStakingContractABI, liquidStakingContractAddress} from "../../AppConstants";
 import {ethers} from "ethers";
+import Moralis from "moralis";
+
 import {filterClaims} from "../../Utils/claimUtils";
 import {bigNumberToEther} from "../../Utils/ethersUtils";
+import {useMoralis} from "react-moralis";
 
 
 export const AvaxInput = () => {
@@ -23,6 +26,7 @@ export const AvaxInput = () => {
 
     const onChangeHandler = (e) => {
         try {
+
             // console.log(e)
             // console.log(e.target["valueAsNumber"])
             // const avaxToStake = toNumber(e);

@@ -21,7 +21,6 @@ export const StakeButton = () => {
 
     const stakeAvax = async () => {
         try {
-
             if(isNaN(avaxInput)) {
                 return
             }

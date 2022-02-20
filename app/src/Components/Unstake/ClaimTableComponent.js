@@ -24,6 +24,7 @@ import {setTransactionInProgress} from "../../Actions/transactionActions";
 import {setBalance} from "../../Actions/walletActions";
 import {CLAIMED} from "../../Utils/messageUtils";
 import {ethers} from "ethers";
+import {fetchDataFromLiquidStakingContract} from "../../APIs/fetchFromServer";
 
 const DropDown = (props) => {
 
@@ -75,11 +76,16 @@ export function ClaimTableComponent() {
 
     const fetch = async () => {
         try {
-            const {ethereum} = window
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
-            const data = await liquidStakingContract.claims(account);
+            // const {ethereum} = window
+            // const provider = new ethers.providers.Web3Provider(ethereum);
+            // const signer = provider.getSigner();
+            // const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
+            // const data = await liquidStakingContract.claims(account);
+            const data = await fetchDataFromLiquidStakingContract({
+                function_name: "claims", params: {
+                    user: account
+                }
+            })
             // console.log({data})
             setClaims(filterClaims(data))
         } catch (e) {

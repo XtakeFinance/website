@@ -9,6 +9,7 @@ import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {ErrorAndInfoComponent} from "./Components/ErrorAndInfo/ErrorAndInfoComponent";
 import {appColor, DISCLAIMER_TEXT, MEASUREMENT_ID} from "./AppConstants";
 import {Alert} from "antd";
+import Moralis from "moralis";
 
 function App() {
 
@@ -17,6 +18,8 @@ function App() {
             mode: 'dark',
         },
     });
+
+
 
     // useEffect(() => {
     //     ReactGA.initialize(MEASUREMENT_ID);

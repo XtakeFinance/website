@@ -8,7 +8,7 @@ const BILLION = 1000000000
 const KILO = 1000
 
 export const findFee = (fee) => {
-    const actualFee = (fee[NUMERATOR].toNumber()) / (fee[DENOMINTOR].toNumber())
+    const actualFee = (parseFloat(fee[0])) / (parseFloat(fee[1]))
     return actualFee
 }
 

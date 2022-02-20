@@ -58,6 +58,8 @@ export const ConnectWalletButton = ({appBar}) => {
 
     const style = appBar ? appBarStyle : otherStyle;
 
+    // console.log({isAuthenticated})
+
     const addAvalancheTestnetNetwork = async (ethereum) => {
         try {
             await ethereum.request({
