@@ -8,6 +8,7 @@ import avax from './../images/Avalanche_AVAX_RedWhite.png'
 import {useSelector} from "react-redux";
 import {AVAX_PRICE_IN_DOLLARS, DEVICE_TYPE, TOTAL_AVAX_LOCKED} from "../Reducers";
 import {DESKTOP, LAPTOP, MOBILE, TAB} from "../AppConstants";
+import {beautifyTVL} from "../Utils/feeUtils";
 
 const COMING_SOON = "Coming Soon...";
 
@@ -53,7 +54,7 @@ export const AppStats = () => {
 
     return (<Space size={spaceSize[deviceType]} wrap
                    style={{minWidth: "100%", justifyContent: "center", padding: "2%", paddingTop: "1%"}}>
-            {/*<CardComponent header={"Total value locked"} subtext={`$${parseInt(avaxPrice * totalAVAXLocked)} USD`} icon={TVLIcon}/>*/}
+            {/*<CardComponent header={"Total value locked"} subtext={`$${beautifyTVL(parseInt(avaxPrice * totalAVAXLocked))} USD`} icon={TVLIcon}/>*/}
             <CardComponent header={"Total value locked"} subtext={COMING_SOON} icon={TVLIcon}/>
             <CardComponent header={"Xtake's APY"} subtext={"9.72%"} icon={XtakeApyIcon}/>
             <CardComponent header={"Total AVAX Staked"} subtext={COMING_SOON} icon={AvaxIcon}/>

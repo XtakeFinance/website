@@ -11,8 +11,8 @@ import * as actions from "../../Actions/transactionActions";
 import {setBalance, setMetamaskAlert} from "../../Actions/walletActions";
 import {Button} from "antd";
 import Moralis from "moralis";
-import {METAMASK_NOT_INSTALLED, MIN_STAKE_AMOUNT_ALLOWED, STAKED} from "../../Utils/messageUtils";
-import {validateInput} from "../../Utils/inputUtils";
+import {MIN_STAKE_AMOUNT_ALLOWED, STAKED} from "../../Utils/messageUtils";
+import {validateInputForSubmit} from "../../Utils/inputUtils";
 
 export const StakeButton = () => {
 
@@ -26,7 +26,7 @@ export const StakeButton = () => {
                 return
             }
 
-            const disable = validateInput(balance, avaxInput)
+            const disable = validateInputForSubmit(balance, avaxInput)
 
             if (disable) {
                 return

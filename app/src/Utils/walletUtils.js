@@ -18,5 +18,10 @@ export const calculateReturn = (amount, fee) => {
     return amount * (1 - (fee/100))
 }
 
-
+// export const calculateReturn = (amount, fee) => {
+//     if(isNaN(amount))
+//         return 0
+//     const approxAmount = (amount) * (1 - (fee/100))
+//     return parseFloat(approxAmount.toFixed(9))
+// }
 

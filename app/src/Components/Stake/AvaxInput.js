@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {toNumber} from "lodash/lang";
 import * as actions from "../../Actions/transactionActions";
 import {Button, Link, TextField} from "@mui/material";
-import {AVAX_BALANCE} from "../../Reducers";
+import {AVAX_BALANCE, IS_CONNECTED} from "../../Reducers";
 import avax_logo from "../../images/Avalanche_AVAX_RedWhite.png"
 import {appColor, liquidStakingContractABI, liquidStakingContractAddress} from "../../AppConstants";
 import {ethers} from "ethers";
@@ -17,6 +17,7 @@ export const AvaxInput = () => {
     const dispatch = useDispatch();
 
     const balance = useSelector(state => state[AVAX_BALANCE])
+    const isConnected = useSelector(state => state[IS_CONNECTED])
 
     const [value, setValue] = useState('');
 
@@ -36,21 +37,28 @@ export const AvaxInput = () => {
     }
 
     const maxHandler = async () => {
-        const options = {
-            value: ethers.utils.parseEther(parseInt(balance).toString()),
+        try {
+            if(!isConnected) {
+                return
+            }
+            const options = {
+                value: ethers.utils.parseEther(parseInt(balance).toString()),
 
+            }
+            const {ethereum} = window
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
+            const result = await liquidStakingContract.estimateGas.deposit(options)
+            const gasFeeData = await provider.getFeeData()
+            const maxFeePerGas = bigNumberToEther(gasFeeData["maxFeePerGas"])
+            const transactionFees = result.toNumber() * (maxFeePerGas)
+            const toStake = balance - transactionFees
+            dispatch(actions.setAvaxInput(toStake));
+            setValue(toStake)
+        } catch (e) {
+            console.log(e)
         }
-        const {ethereum} = window
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
-        const result = await liquidStakingContract.estimateGas.deposit(options)
-        const gasFeeData = await provider.getFeeData()
-        const maxFeePerGas = bigNumberToEther(gasFeeData["maxFeePerGas"])
-        const transactionFees = result.toNumber() * (maxFeePerGas)
-        const toStake = balance - transactionFees
-        dispatch(actions.setAvaxInput(toStake));
-        setValue(toStake)
     }
 
     return (

@@ -20,7 +20,7 @@ import {
     UNSTAKED
 } from "../../Utils/messageUtils";
 import {toNumber} from "lodash/lang";
-import {validateInput} from "../../Utils/inputUtils";
+import {validateInput, validateInputForSubmit} from "../../Utils/inputUtils";
 
 export const UnstakeButton = () => {
 
@@ -33,7 +33,7 @@ export const UnstakeButton = () => {
             if(isNaN(stkAvaxInput)) {
                 return
             }
-            const disable = validateInput(balance, stkAvaxInput)
+            const disable = validateInputForSubmit(balance, stkAvaxInput)
             if(disable) {
                 return;
             }

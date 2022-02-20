@@ -8,10 +8,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
+const SERVER_URL = "https://rzzxlj379wtf.usemoralis.com:2053/server"
+const APP_ID = "Ke8AutNfbaAx6qKXG1yv4pdrHxxrnOzs1FYZpPWP"
 
 ReactDOM.render(
-    <MoralisProvider appId="lvP4YKjTc5mJHFOw6yrTaaSssgKDsNj8ofAsbP9k"
-                     serverUrl="https://etwl0rpd8mxs.usemoralis.com:2053/server">
+    <MoralisProvider appId={APP_ID}
+                     serverUrl={SERVER_URL}>
         <Provider store={store}>
             <App/>
         </Provider>
