@@ -21,10 +21,10 @@ function App() {
 
 
 
-    // useEffect(() => {
-    //     ReactGA.initialize(MEASUREMENT_ID);
-    //     ReactGA.send("pageview");
-    // }, [])
+    useEffect(() => {
+        ReactGA.initialize(MEASUREMENT_ID);
+        ReactGA.send("pageview");
+    }, [])
 
     return (
         <ThemeProvider theme={darkTheme}>
