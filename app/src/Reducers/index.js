@@ -6,7 +6,7 @@ import {
     setTransactionDetailsReducer,
     setTransactionReducer,
     stkAvaxInputReducer,
-    unstakeAlertReducer
+    unstakeAlertReducer, unstakeTypeReducer
 } from "./transactionReducers";
 import {
     accountReducer,
@@ -17,6 +17,14 @@ import {
     stkAvaxBalanceReducer
 } from "./walletReducers";
 import {deviceDimensionUser, deviceTypeReducer} from "./userDeviceScreenReducers";
+import {
+    delayedUnstakeFeeReducer,
+    depositFeeReducer,
+    minimumAvaxThatCanBeStakedReducer, minimumStkAvaxThatCanBeUnstakedReducer,
+    rewardsFeeReducer,
+    unstakeNowFeeReducer
+} from "./feeReducers";
+import {priceOfAvaxReducer, totalAvaxLocked} from "./infoReducers";
 
 export const IS_STAKING = "isStaking";
 export const CONTRACTS = "contracts"
@@ -32,7 +40,15 @@ export const DEVICE_DIMENSION = "DEVICE_DIMENSION"
 export const METAMASK_INSTALLED = "METAMASK_INSTALLED"
 export const DEVICE_TYPE = "DEVICE_TYPE";
 export const IS_CONNECTED = "isConnected"
-
+export const UNSTAKE_TYPE = "unstakeTypeReducer"
+export const UNSTAKE_NOW_FEE = "unstakeNowFeeReducer"
+export const DELAYED_UNSTAKE_FEE = "delayedUnstakeFeeReducer"
+export const REWARDS_FEE = "rewardsFeeReducer"
+export const DEPOSIT_FEE = "depositFeeReducer"
+export const MIN_STAKE_AMOUNT = "MIN_STAKE_AMOUNT"
+export const MIN_UNSTAKE_AMOUNT = "MIN_UNSTAKE_AMOUNT"
+export const AVAX_PRICE_IN_DOLLARS = "AVAX_PRICE_IN_DOLLARS"
+export const TOTAL_AVAX_LOCKED = "TOTAL_AVAX_LOCKED"
 
 const reducers = combineReducers({
     account: accountReducer,
@@ -50,7 +66,16 @@ const reducers = combineReducers({
     [SHOW_UNSTAKE_ALERT]: unstakeAlertReducer,
     [DEVICE_DIMENSION]: deviceDimensionUser,
     [METAMASK_INSTALLED]: metamaskReducer,
-    [DEVICE_TYPE]: deviceTypeReducer
+    [DEVICE_TYPE]: deviceTypeReducer,
+    [UNSTAKE_TYPE]: unstakeTypeReducer,
+    [UNSTAKE_NOW_FEE] : unstakeNowFeeReducer,
+    [DELAYED_UNSTAKE_FEE] : delayedUnstakeFeeReducer,
+    [REWARDS_FEE] : rewardsFeeReducer,
+    [DEPOSIT_FEE] : depositFeeReducer,
+    [MIN_STAKE_AMOUNT] : minimumAvaxThatCanBeStakedReducer,
+    [MIN_UNSTAKE_AMOUNT] : minimumStkAvaxThatCanBeUnstakedReducer,
+    [AVAX_PRICE_IN_DOLLARS] : priceOfAvaxReducer,
+    [TOTAL_AVAX_LOCKED] : totalAvaxLocked
 })
 
 export default reducers

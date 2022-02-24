@@ -1,15 +1,8 @@
 import React from "react";
-import {
-    Backdrop,
-    Box,
-    CircularProgress,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle, Stack
-} from "@mui/material";
-import {Button, Typography} from "antd";
+import {Backdrop, CircularProgress, Stack} from "@mui/material";
+import {Typography} from "antd";
+
+const TRANSACTION_IN_PROGRESS = "Transaction in progress..."
 
 export const TransactionProgress = () => {
 
@@ -20,7 +13,7 @@ export const TransactionProgress = () => {
         >
             <Stack gap={1} justifyContent="center" alignItems="center">
                 <CircularProgress color="error" />
-                <Typography style={{color:"white"}}>Transaction in progres...</Typography>
+                <Typography style={{color:"white"}}>{TRANSACTION_IN_PROGRESS}</Typography>
             </Stack>
         </Backdrop>
     )

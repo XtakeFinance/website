@@ -9,7 +9,14 @@ import {Accordion, AccordionDetails, AccordionSummary, Typography} from "@mui/ma
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {cardBg, DESKTOP, LAPTOP, MOBILE, secondaryTextColor, TAB} from "../../AppConstants";
 import {useSelector} from "react-redux";
-import {DEVICE_DIMENSION, DEVICE_TYPE} from "../../Reducers";
+import {
+    DELAYED_UNSTAKE_FEE,
+    DEPOSIT_FEE,
+    DEVICE_DIMENSION,
+    DEVICE_TYPE,
+    REWARDS_FEE,
+    UNSTAKE_NOW_FEE
+} from "../../Reducers";
 
 
 const padding = {
@@ -32,6 +39,11 @@ export const FAQAccordion = () => {
     // console.log({padding})
 
     // const padding = Math.max();
+
+    const depositFee = useSelector(state => state[DEPOSIT_FEE]);
+    const rewardFee = useSelector(state => state[REWARDS_FEE])
+    const delayedUnstakeFee = useSelector(state => state[DELAYED_UNSTAKE_FEE])
+    const instantUnstakeFee = useSelector(state => state[UNSTAKE_NOW_FEE])
 
 
     return (
@@ -95,8 +107,7 @@ export const FAQAccordion = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography sx={{color: secondaryTextColor}}>
-                        There are no deposit or withdrawal charges. We only charge a commission of 2% on the accrued
-                        rewards.
+                        We charge a one-time deposit fee ({depositFee * 100}% of transaction size), a one-time withdrawal fee (0.3% of transaction size), and an ongoing management fee (~{rewardFee * 100}% of staking rewards). These fees may be subject to change.
                     </Typography>
                 </AccordionDetails>
             </Accordion>

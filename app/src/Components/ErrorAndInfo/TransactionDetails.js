@@ -73,7 +73,7 @@ export const TransactionDetails = ({error, details}) => {
                                     <br/>
                                     <div style={{color: "white"}}>Something went wrong</div>
                                     <br/>
-                                    <div>{details && details["message"] || ""}</div>
+                                    <div>{(details && details["data"] && details["data"]["message"] || details && details["message"]) || ""}</div>
                                 </> :
                                 <>
                                     <div style={{textAlign: "center"}}>

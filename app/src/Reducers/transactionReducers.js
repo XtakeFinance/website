@@ -1,7 +1,7 @@
 import {
     RESET_INPUT,
     SET_AVAX_INPUT,
-    SET_EXCHANGE_RATE,
+    SET_EXCHANGE_RATE, SET_INSTANT_UNSTAKE,
     SET_STAKE_UNSTAKE,
     SET_STK_AVAX_INPUT,
     SET_TRANSACTION_DETAILS,
@@ -12,23 +12,23 @@ import {
 import {SET_EXCHANGE_RATE_SUCCESS} from "../Sagas/appSaga";
 
 
-export const avaxInputReducer = (state = 0.0, action) => {
+export const avaxInputReducer = (state = '', action) => {
     switch (action.type) {
         case SET_AVAX_INPUT:
             return action.payload
         case RESET_INPUT:
-            return 0.0
+            return ''
         default:
             return state
     }
 }
 
-export const stkAvaxInputReducer = (state = 0.0, action) => {
+export const stkAvaxInputReducer = (state = '', action) => {
     switch (action.type) {
         case SET_STK_AVAX_INPUT:
             return action.payload
         case RESET_INPUT:
-            return 0.0
+            return ''
         default:
             return state
     }
@@ -77,6 +77,15 @@ export const setStakeUnstakeReducer = (state = true, action) => {
 export const unstakeAlertReducer = (state = false, action) => {
     switch (action.type) {
         case SET_UNSTAKE_ALERT:
+            return action.payload
+        default:
+            return state
+    }
+}
+
+export const unstakeTypeReducer = (state = true, action) => {
+    switch (action.type) {
+        case SET_INSTANT_UNSTAKE:
             return action.payload
         default:
             return state

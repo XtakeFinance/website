@@ -10,7 +10,8 @@ import TableRow from '@mui/material/TableRow';
 import {Button, MenuItem} from "@mui/material";
 import {Select} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {ethers} from "ethers";
+import Moralis from "moralis";
+
 import {liquidStakingContractABI, liquidStakingContractAddress, NO_OF_BLOCK_CONFIRMATIONS} from "../../AppConstants";
 import {beautifyDate, filterClaims} from "../../Utils/claimUtils";
 import {useMoralis} from "react-moralis";
@@ -18,38 +19,12 @@ import {Divider} from "antd";
 import _ from 'lodash';
 import {STK_AVAX_BALANCE} from "../../Reducers";
 import {EmptyComponent} from "../Utils/UtilComponents";
-import {setTransactionInProgress} from "../../Actions/transactionActions";
 import * as actions from "../../Actions/transactionActions";
+import {setTransactionInProgress} from "../../Actions/transactionActions";
 import {setBalance} from "../../Actions/walletActions";
-import {CLAIMED, STAKED} from "../../Utils/messageUtils";
-import {bigNumberToEther} from "../../Utils/ethersUtils";
-
-function createData(id, claimAmount, deadline) {
-    return {id, claimAmount, deadline};
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0,),
-    createData('Ice cream sandwich', 237, 10),
-    createData('Eclair', 262, 16.0,),
-    createData('Cupcake', 305, 3.7,),
-    createData('Gingerbread', 356, 16.0,),
-    createData('Frozen yoghurt', 159, 6.0,),
-    createData('Ice cream sandwich', 237, 9.0,),
-    createData('Eclair', 262, 16.0,),
-    createData('Cupcake', 305, 3.7,),
-    createData('Gingerbread', 356, 16.0,),
-    createData('Frozen yoghurt', 159, 6.0,),
-    createData('Ice cream sandwich', 237, 10),
-    createData('Eclair', 262, 16.0,),
-    createData('Cupcake', 305, 3.7,),
-    createData('Gingerbread', 356, 16.0,),
-    createData('Frozen yoghurt', 159, 6.0,),
-    createData('Ice cream sandwich', 237, 9.0,),
-    createData('Eclair', 262, 16.0,),
-    createData('Cupcake', 305, 3.7,),
-    createData('Gingerbread', 356, 16.0,),
-];
+import {CLAIMED} from "../../Utils/messageUtils";
+import {ethers} from "ethers";
+import {fetchDataFromLiquidStakingContract} from "../../APIs/fetchFromServer";
 
 const DropDown = (props) => {
 
@@ -90,6 +65,7 @@ export function ClaimTableComponent() {
         account,
     } = useMoralis();
 
+
     const [claims, setClaims] = useState([])
 
     const xAvaxBalance = useSelector((state) => state[STK_AVAX_BALANCE])
@@ -100,11 +76,16 @@ export function ClaimTableComponent() {
 
     const fetch = async () => {
         try {
-            const {ethereum} = window
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
-            const data = await liquidStakingContract.claims(account);
+            // const {ethereum} = window
+            // const provider = new ethers.providers.Web3Provider(ethereum);
+            // const signer = provider.getSigner();
+            // const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
+            // const data = await liquidStakingContract.claims(account);
+            const data = await fetchDataFromLiquidStakingContract({
+                function_name: "claims", params: {
+                    user: account
+                }
+            })
             // console.log({data})
             setClaims(filterClaims(data))
         } catch (e) {
@@ -161,7 +142,7 @@ export function ClaimTableComponent() {
     return (
         <>
             <Divider orientation="left" plain style={{color: "white", borderColor: "#333333"}}/>
-            <TableContainer component={Paper} sx={{maxHeight: 440, minWidth: "100%"}}>
+            <TableContainer component={Paper} sx={{maxHeight: 330, minWidth: "100%"}}>
                 <Table stickyHeader={true} aria-label="simple table">
                     <TableHead>
                         <TableRow>

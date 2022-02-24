@@ -4,12 +4,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {toNumber} from "lodash/lang";
 import * as actions from "../../Actions/transactionActions";
 import {Button, Link, TextField} from "@mui/material";
-import {AVAX_BALANCE} from "../../Reducers";
+import {AVAX_BALANCE, IS_CONNECTED} from "../../Reducers";
 import avax_logo from "../../images/Avalanche_AVAX_RedWhite.png"
 import {appColor, liquidStakingContractABI, liquidStakingContractAddress} from "../../AppConstants";
 import {ethers} from "ethers";
+import Moralis from "moralis";
+
 import {filterClaims} from "../../Utils/claimUtils";
 import {bigNumberToEther} from "../../Utils/ethersUtils";
+import {useMoralis} from "react-moralis";
 
 
 export const AvaxInput = () => {
@@ -17,39 +20,49 @@ export const AvaxInput = () => {
     const dispatch = useDispatch();
 
     const balance = useSelector(state => state[AVAX_BALANCE])
+    const isConnected = useSelector(state => state[IS_CONNECTED])
 
-    const [value, setValue] = useState(0.0);
+    const [value, setValue] = useState('');
 
     const onChangeHandler = (e) => {
         try {
+
+            // console.log(e)
             // console.log(e.target["valueAsNumber"])
             // const avaxToStake = toNumber(e);
             setValue(e.target.value)
             const avaxToStake = toNumber(e.target.value);
-            console.log({avaxToStake})
+            // console.log({avaxToStake})
             // dispatch(actions.setAvaxInput(e.target["valueAsNumber"]));
-            dispatch(actions.setAvaxInput(avaxToStake));
+            dispatch(actions.setAvaxInput(e.target.value));
         } catch (e) {
             console.log("some error")
         }
     }
 
     const maxHandler = async () => {
-        const options = {
-            value: ethers.utils.parseEther(parseInt(balance).toString()),
+        try {
+            if(!isConnected) {
+                return
+            }
+            const options = {
+                value: ethers.utils.parseEther(parseInt(balance).toString()),
 
+            }
+            const {ethereum} = window
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
+            const result = await liquidStakingContract.estimateGas.deposit(options)
+            const gasFeeData = await provider.getFeeData()
+            const maxFeePerGas = bigNumberToEther(gasFeeData["maxFeePerGas"])
+            const transactionFees = result.toNumber() * (maxFeePerGas)
+            const toStake = balance - transactionFees
+            dispatch(actions.setAvaxInput(toStake));
+            setValue(toStake)
+        } catch (e) {
+            console.log(e)
         }
-        const {ethereum} = window
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const liquidStakingContract = new ethers.Contract(liquidStakingContractAddress, liquidStakingContractABI, signer);
-        const result = await liquidStakingContract.estimateGas.deposit(options)
-        const gasFeeData = await provider.getFeeData()
-        const maxFeePerGas = bigNumberToEther(gasFeeData["maxFeePerGas"])
-        const transactionFees = result.toNumber() * (maxFeePerGas)
-        const toStake = balance-transactionFees
-        dispatch(actions.setAvaxInput(toStake));
-        setValue(toStake)
     }
 
     return (
@@ -75,11 +88,12 @@ export const AvaxInput = () => {
                     </td>
                 </tr>
                 <tr>
-                    <td onClick={maxHandler} colspan="2">Balance: {balance}AVAX<Button color={"error"} variant={"text"}>(Max)</Button></td>
+                    <td onClick={maxHandler} colspan="2">Balance: {balance} AVAX<Button color={"error"} variant={"text"}>(Max)</Button></td>
                 </tr>
             </table>
         </div>
     )
+
 
     // return (
     //         <div style={{textAlign: "center", paddingBottom:"20px"}}>
